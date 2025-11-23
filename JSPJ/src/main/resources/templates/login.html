@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f7fb;
+        }
+
+        /* 헤더 */
+        header {
+            background: #4a6cf7;
+            color: white;
+            padding: 15px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 로그인 버튼 */
+        .login-btn {
+            background: white;
+            color: #4a6cf7;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+
+        .login-btn:hover {
+            background: #e2e8ff; /* 연한 파란색 */
+        }
+
+        /* 콘텐츠 */
+        .content {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+		.idArea {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .pwArea {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        
+        /* 푸터 */
+        footer {
+            margin-top: 40px;
+            background: #eee;
+            padding: 10px;
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+<script>
+	function login(){
+		 // input 값 가져오기
+	    var userId = $('#userId').val();
+	    var userPw = $('#userPw').val();
+	    
+	    $.ajax({
+	        url: '/login',          // 서버 컨트롤러 매핑 경로
+	        type: 'POST',
+	        data: JSON.stringify({ id: userId, pw: userPw })
+	        contentType: 'application/json'
+	        success: function(data) {
+	            if(data.success){
+	                alert('로그인 성공!');
+	                window.location.href = '/index'; // 성공 시 이동
+	            } else {
+	                alert('로그인 실패: ' + data.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('로그인 중 오류:', error);
+	        }
+	    });
+	}
+</script>
+
+<body>
+
+    <!-- 헤더 -->
+    <header>
+        <div>JSPJ LOGIN PAGE</div>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+	 <div class="content">
+	    <h2>로그인</h2>
+	
+	    <!-- ID -->
+	    <div class="idArea">
+	        <div>
+	        	<label for="userId" style="padding: 10px;">ID</label>
+	            <input type="text" id="userId" name="userId" placeholder="아이디 입력" style="width: 60%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+	        </div>
+	        <div style="margin-top: 30px;">
+	        	<label for="userPw" style="padding: 10px;">PW</label>
+	            <input type="password" id="userPw" name="userPw" placeholder="비밀번호 입력" style="width: 60%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+	        </div>
+	    </div>
+	
+	    <!-- 로그인 버튼 -->
+	    <div style="margin-top: 30px;">
+	        <button class="login-btn" onclick="login()">로그인</button>
+	    </div>
+</div>
+
+    <!-- 푸터 -->
+    <footer>
+        © 2025 JSPJ Project. All rights reserved.
+    </footer>
+
+</body>
+</html>
