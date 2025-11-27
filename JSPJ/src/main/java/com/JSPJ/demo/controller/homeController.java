@@ -64,4 +64,34 @@ public class homeController {
 	public String userRegistPage() {
 		return "userRegist";
 	}
+	
+	/**
+	 * 회원가입시 아이디 중복검사
+	 * @param userVo
+	 * @return
+	 */
+	@PostMapping("/userIdChk")
+	@ResponseBody
+	public String userIdChk(@RequestBody userVo userVo) {
+		String result = "fail";
+		
+		result = homeService.userIdChk(userVo);
+		
+		return result;
+	}
+	
+	/**
+	 * 회원가입
+	 * @param userVo
+	 * @return
+	 */
+	@PostMapping("/userRegist")
+	@ResponseBody
+	public String userRegist(@RequestBody userVo userVo) {
+		String result = "fail";
+		
+		result = homeService.userRegist(userVo);
+		
+		return result;
+	}
 }

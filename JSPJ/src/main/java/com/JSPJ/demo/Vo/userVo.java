@@ -19,7 +19,18 @@ public class userVo  implements Serializable  {
 	
 	private String email;
 	
+	private String birth;
 	
+	
+	
+
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
 
 	public String getEmail() {
 		return email;
