@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* body base style */
+html, body {  height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+*	{margin:0; padding:0;}
+html {}
+/*  body	 { background-color:#333; font:12px Malgun Gothic, Dotum, sans-serif; color:#333;} */
+
+img	{border:0;}
+p	{margin:0; padding:0}
+dl, dt, dd	{margin:0; padding:0; vertical-align:top}
+img		{font-size:0}
+
+#wrap_error	{position:absolute; left:50%; top:50%; width:544px; height:243px; margin:-141px auto 0 -315px; padding:39px 47px 0 40px; background:url('/images/common/error/bg_error.gif') no-repeat left top;}
+
+.error_layer_warp {position:absolute; top:50%; left:50%; background-color: #FFF;z-index:10010;}
+
+.error_top	 	{overflow:hidden; height:36px; margin-bottom:30px;}
+.error_top h1	{float:left;  color:#000; font:30px Arial, ProximaNovaSoft,sans-serif;letter-spacing:-1px;padding:0;}
+.error_top span	{float:right; margin-top:3px;}
+.error_cnt	 	{ font:13px Arial, ProximaNovaSoft,sans-serif;letter-spacing:1px;line-height:20px; padding:2; overflow:hidden; height:30px; margin-bottom:20px; padding:20px 0 50px 10px; border-top:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3;}
+
+.error_message  {font-weight:bold; font-family: "Arial, Helvetica, Arial, Geneva, sans-serif"; color: #b63740; font-size: 10pt;}
+.error_code 	{font-weight:bold; font-family: "Arial, Helvetica, Arial, Geneva, sans-serif"; color: #585eb6; font-size: 8pt; margin-left: 10px;}
+.error_result 	{font-weight:bold; font: 11px/10px Arial, "Helvetica Neue", Helvetica, Arial, Geneva, sans-serif; color: #313131; margin-left: 20px;}
+.error_common 	{font-family: "Arial, Verdana, Arial, Helvetica, sans-serif"; color: #313131; font-size: 10pt; margin-left: 20px; }
+
+.btn_error {text-align:center;}
+
+/*padding margin*/
+.mr20 {margin-right:20px;}

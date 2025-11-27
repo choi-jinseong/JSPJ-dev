@@ -1,0 +1,117 @@
+body {overflow-x:hidden}
+.index {background:url("/resources/images/pearl/main/bg.png") center top no-repeat; width:100%; height:1100px; background-size:cover; min-width:1400px}
+.header {width:100%;min-width:1400px; height:122px; border-bottom:2px solid #4e616b}
+.header .container {width:90%;margin:0 auto;padding-top:10px;position:relative;}
+.header .container .logo {padding-top:12px}
+.header .container .tnb {position:absolute;right:180px;top:20px;list-style:none;color:#fff}
+.header .container .tnb li {display:inline;padding:10px 20px 10px 45px;font-size:15px}
+.header .container .tnb .company {background:url("/resources/images/pearl/main/top_ico1.png") 0 5px no-repeat}
+.header .container .tnb .user {background:url("/resources/images/pearl/main/top_ico2.png") 0 5px no-repeat}
+.header .gnb {position:absolute;bottom:-20px;right:0;}
+.header .gnb li {display:inline;padding:0 20px;background:url("/resources/images/pearl/main/gnb_bar.png") 0 2px no-repeat;}
+.header .gnb li a {text-decoration:none}
+.header .gnb li:first-child {background:none}
+.header .gnb li, .header .gnb li a {color:#fff;font-size:20px;font-weight:200}
+.header .languages {position:absolute;right:20px;top:15px}
+.header .languages li {display:inline-block;float:left;margin-left:-1px;padding:5px 15px;border:1px solid #69767b;color:#69767b;font-size:13px;cursor:pointer;}
+.header .languages li.active {font-weight:500;border:2px solid #ed1c24;padding:4px 15px;color:#ed1c24;z-index:9999;position:relative;}
+
+.content {width:95%;margin:0 auto;position:relative;min-width:1100px}
+.content .mypage {margin-top:40px;position:relative;}
+.content .mypage .mypage_bar {position:absolute;;width:145px;height:5px;background:#ed1c24;left:-165px;border-top:6px solid #ed1c24;top:4px}
+.content .mypage .mypage_tit {font-size:34px;color:#fff;letter-spacing:-1px;line-height:38px}
+.content .mypage .mypage_tit span.sb2 {color:#54616d}
+.content .mypage .mypage_tit span.sb {display:inline-block;color:#acb2b5;font-size:16px;font-weight:200;}
+
+.content .mypage .box_info {position:absolute;left:240px;top:0;width:700px;height:180px;}
+.content .mypage .box_info .box {width:169px;height:175px;float:left;}
+.content .mypage .box_info .box:nth-child(2) {margin:0 5px}
+.content .mypage .box_info .box:nth-child(4) {margin:0 5px}
+.content .mypage .box_info .box-blue {background:#ed1c24}
+.content .mypage .box_info .box-gray {background:#6d798f}
+.content .mypage .box_info .box-white {background:#fff;color:#000}
+.content .mypage .box_info .box-yellow {background:#FFF200;color:#000}
+
+.content .mypage .box_info .box p.title {margin:20px 0 0 20px;font-size:24px;line-height:28px}
+
+.content .mypage .box_info .box p.subtxt {font-size:12px;margin:0 20px}
+.content .mypage .box .list {margin:35px 20px}
+.content .mypage .box .list .left {width:50%;float:left;text-align:left;padding:3px 0;font-size:16px;}
+.content .mypage .box .list .right {width:50%;float:right;text-align:right;padding:2px 0;font-size:18px}
+.box-blue p.title {color:#fff}
+.box-blue p.subtxt {color:#f68e92;}
+.box-blue .list .left {color:#f68e92;}
+.box-blue .list .right {color:#fff}
+
+.box-gray p.title {color:#fff}
+.box-gray p.subtxt {color:#969faf;}
+
+.box-gray .list {margin:10px 20px !important}
+.box-gray .list .left {color:#969faf; width: 70% !important;}
+.box-gray .list .right {color:#fff;width: 30% !important;}
+
+
+
+.box-white p.title {color:#000}
+.box-white p.subtxt {color:#a6a6a6;}
+.box-white .list {margin:10px 20px !important}
+.box-white .list .left {color:#a6a6a6;}
+.box-white .list .right {color:#000}
+
+.box-yellow p.title {color:#000}
+.box-yellow p.subtxt {color:#a6a6a6;}
+.box-yellow .list {margin:10px 20px !important}
+.box-yellow .list .left {color:#a6a6a6;}
+.box-yellow .list .right {color:#000}
+
+
+.box-small {width:175px;height:80px !important;background:#5b646b;margin-top:10px;color:#fff !important}
+.gap {margin:10px 5px !important;}
+.box-small .title {margin:18px 0 0 18px !important}
+.box-small .subtxt {font-size:14px !important}
+
+.recent_post {clear:both;position:absolute;top:470px}
+.recent_post .leftArea {border-top:6px solid #ed1c24;width:200px;font-size:34px;color:#fff;font-weight:600;padding-top:11px;line-height:38px}
+.recent_post .leftArea .paging {position:relative;top:5px;left:110px}
+.recent_post .leftArea .paging li {width:14px;height:14px;border-radius:14px;background:#8f9595;float:left;margin:0 5px;cursor:pointer}
+.recent_post .leftArea .paging .active {width:35px;height:14px;background:#ffa4a9;border-radius:10px;}
+
+.recent_post .rightArea {position:absolute;left:240px;width:690px;top:0;}
+.recent_post .rightArea ul li {color:#fff;position:relative;font-size:14px;font-weight:300;padding:3px 0}
+.recent_post .rightArea ul li a {color:inherit;text-decoration:none}
+.recent_post .rightArea ul li .date {position:absolute;right:50px;top:2px;color:#d2d3d3}
+
+.recent_bid {clear:both;position:absolute;top:650px;}
+.recent_bid .leftArea {border-top:6px solid #ed1c24;width:200px;font-size:34px;color:#fff;font-weight:600;padding-top:11px;line-height:38px}
+.recent_bid .leftArea .paging {position:relative;top:1px;left:110px}
+.recent_bid .leftArea .paging li {width:14px;height:14px;border-radius:14px;background:#8f9595;float:left;margin:0 5px;cursor:pointer}
+.recent_bid .leftArea .paging .active {width:35px;height:14px;background:#ffa4a9;border-radius:10px;}
+
+.recent_bid .rightArea {position:absolute;left:240px;width:690px;top:0;}
+.recent_bid .rightArea ul li {color:#fff;position:relative;font-size:14px;font-weight:300;padding:3px 0}
+.recent_bid .rightArea ul li a {color:inherit;text-decoration:none}
+.recent_bid .rightArea ul li .date {position:absolute;right:50px;top:2px;color:#d2d3d3}
+
+.store_sales {clear:both;position:absolute;top:200px}
+.store_sales .leftArea {border-top:6px solid #ed1c24;width:200px;font-size:34px;color:#fff;font-weight:600;padding-top:11px;line-height:38px}
+.store_sales .rightArea {position:absolute;left:240px;width:690px;top:0;  padding:10px; border-radius:5px; background-color: #100906;     opacity: 0.6;}
+.store_sales .rightArea .rate_area {position:absolute;left:410px;top:60px}
+.store_sales .rightArea .rate_area .rate1 {border:1px solid #fff;padding:10px;width:175px;height:85px;position:relative;}
+.store_sales .rightArea .rate_area .rate2 {border:1px solid #fff;padding:10px;width:175px;height:85px;margin-top:10px;position:relative;}
+.store_sales .rightArea .rate_area .common {font-size:15px;color:#fff}
+.store_sales .rate1 .rate {position:relative;left:10px;top:5px;color:#fff;font-size:20px;color:#fea3a8}
+.store_sales .rate2 .rate {position:relative;left:10px;top:5px;color:#fff;font-size:20px;color:#fff}
+
+.popup {position:absolute;right:3.3%;top:300px;width:250px}
+.popup .line {border-top:6px solid #ed1c24;width:100px;text-align:right;position:absolute;right:0;top:-10px}
+.popup .title {text-align:right;padding:8px 0 15px 0;color:#fff;font-size:28px;font-weight:300}
+.popup .text .stitle {color:#fff;padding:15px 0 0 0;font-weight:300;font-size:20px}
+.popup .text .scont {text-align:right;color:#fff;font-size:16px;margin-top:-5px}
+.popup .text .paging {position:relative;top:5px;left:190px}
+.popup .text .paging li {width:14px;height:14px;border-radius:14px;background:#8f9595;float:left;margin:0 5px;cursor:pointer}
+.popup .text .paging .active {width:35px;height:14px;background:#ffa4a9;border-radius:10px;}
+
+#quick {position:fixed;right:0;top:40%;}
+#footer {position:fixed;bottom:0;left:0;width:100%;height:70px;background:#000;padding:15px 10%;opacity:0.8;color:#fff;font-weight:300}
+#footer .banner {position:absolute;right:10%;top:15px;}
+

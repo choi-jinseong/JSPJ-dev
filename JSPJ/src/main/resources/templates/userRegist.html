@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f7fb;
+        }
+
+        /* 헤더 */
+        header {
+            background: #4a6cf7;
+            color: white;
+            padding: 15px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 회원가입 버튼 */
+        .regist-btn {
+            background: white;
+            color: #4a6cf7;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+        
+        
+        
+        /* 중복검사 버튼 */
+        .idChk-btn {
+		    padding: 8px 12px;
+		    border-radius: 6px;
+		    background: #4a6cf7;
+		    color: white;
+		    border: none;
+		    cursor: pointer;
+		    white-space: nowrap;  /* 버튼 줄바꿈 금지 */
+		    height: 36px;         /* input과 동일 높이 */
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    font-size: 14px;
+		    transition: 0.2s;
+		}
+
+        .regist-btn:hover {
+            background: #e2e8ff; /* 연한 파란색 */
+        }
+        
+        .idChk-btn:hover {
+		    background: #3a59d6;
+		}
+
+        /* 콘텐츠 */
+        .content {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+		.registArea {
+            max-width: 850px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .pwArea {
+            max-width: 600px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        
+        /* 푸터 */
+        footer {
+            margin-top: 40px;
+            background: #eee;
+            padding: 10px;
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        
+        /* 셀렉트 박스 공통 스타일 */
+		select {
+		    width: 150px;
+		    padding: 8px;
+		    border-radius: 6px;
+		    border: 1px solid #ccc;
+		    background: white;
+		    font-size: 14px;
+		    transition: 0.2s ease-in-out;
+		    cursor: pointer;
+		}
+		
+		/* hover 시 부드럽게 */
+		select:hover {
+		    border-color: #4a6cf7;
+		    background: #f0f4ff;
+		}
+		
+		/* 포커스 시 */
+		select:focus {
+		    outline: none;
+		    border-color: #4a6cf7;
+		    box-shadow: 0 0 5px rgba(74,108,247,0.4);
+		}
+
+
+		/* 한 줄을 가로로 2칸 정렬하는 영역 */
+		.form-row {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    margin-top: 25px;
+		}
+		
+		/* 라벨 + input 묶음 */
+		.form-group {
+		    width: 45%;
+		    display: flex;
+		    align-items: center; 
+		}
+		
+		/* 라벨 */
+		.form-group label {
+		    width: 100px; 
+		    margin-right: 10px;
+		    font-weight: bold;
+		    text-align: right;
+		}
+		
+		.form-group input,
+		.form-group select {
+		    flex: 1;     /* 남은 공간 모두 사용 */
+		    padding: 8px;
+		    border-radius: 6px;
+		    border: 1px solid #ccc;
+		}
+		
+		.idChk-btn:disabled {
+		    background: #c2c2c2;
+		    cursor: not-allowed;
+		}
+    </style>
+</head>
+
+<body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+
+	/* 회원가입 */
+	function regist(){
+		
+	   /* 아이디 중복검사한지 확인 */
+	   if ($("#idChkYn").val() !== "1") {
+	        alert("아이디 중복검사를 진행해주세요.");
+	        return;
+	    }
+	   
+	   /* 비밀번호확인  */
+	   if($("#userPw").val() != $("#userRePw").val()){
+		   alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+		   return;
+	   }
+	   
+	   if( $('#userId').val() == "" || $('#userId').val() == null){
+		   alert("아이디를 입력해주세요");
+		   return;
+	   }
+	   
+	   if( $('#userPw').val() == "" || $('#userPw').val() == null){
+		   alert("비밀번호를 입력해주세요");
+		   return;
+	   }
+	   
+	   if( $('#userNm').val() == "" || $('#userNm').val() == null){
+		   alert("사용자이름을 입력해주세요");
+		   return;
+	   }
+	   
+	    var dataInfo = {};
+		 // input 값 가져오기
+	    var userId = $('#userId').val();
+	    var userPw = $('#userPw').val();
+	    var userNm = $('#userNm').val();
+	    var userEmail = $('#userEmail').val();
+	    var userBirth = $('#userBirth').val();
+	    var userTelNo = $('#userTelNo').val();
+	    
+	    dataInfo.id = userId;
+	    dataInfo.pw = userPw;
+	    dataInfo.name = userNm;
+	    dataInfo.email = userEmail;
+	    dataInfo.birth = userBirth;
+	    dataInfo.telNo =  userTelNo;
+	    
+	    $.ajax({
+	        url: '/userRegist',          
+	        type: 'POST',
+	        data: JSON.stringify(dataInfo),
+	        contentType: 'application/json',
+	        success: function(data) {
+	            if(data == "success"){
+	                alert('회원가입 성공! 가입하신 아이디로 로그인 부탁 드립니다.');
+	                location.href="/"; 
+	            } else {
+	                alert('로그인 실패: ' + data.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('로그인 중 오류:', error);
+	        }
+	    });
+	}
+	
+	/* 아이디중복검사 */
+	function idChk(){
+		 // input 값 가져오기
+		
+	    var userId = $('#userId').val();
+	    
+	    $.ajax({
+	        url: '/userIdChk',          
+	        type: 'POST',
+	        data: JSON.stringify({ id: userId}),
+	        contentType: 'application/json',
+	        success: function(data) {
+	            if(data == "success"){
+	            	// 성공 시
+	                $('#userId').prop('disabled', true);
+	                $('#idChkBtn').prop('disabled', true);
+	                // 🔥 히든값: 중복검사 성공
+	                $('#idChkYn').val('1');
+	                
+	                $('#idMsg')
+	                    .text('해당 아이디는 사용이 가능합니다.')
+	                    .css('color', 'green')
+	                    .show();
+	            } else {
+	                // 실패 시
+	                $('#idMsg')
+	                    .text('중복된 아이디가 존재합니다.')
+	                    .css('color', 'red')
+	                    .show();
+	                // 실패 시
+	                $('#idChkYn').val('0');  // 🔥 실패 표시
+
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('로그인 중 오류:', error);
+	        }
+	    });		
+	}
+</script>
+
+    <!-- 헤더 -->
+    <header>
+        <div>JSPJ REGIST PAGE</div>
+    </header>
+
+    <!-- 메인 콘텐츠 -->
+	 <div class="content">
+	    <h2>회원가입</h2>
+	
+	    <!-- 회원가입 -->
+		 <div class="registArea">
+	
+		    <!-- 1번째 줄 : ID / 이름 -->
+		    <div class="form-row">
+		        <div class="form-group" style="flex-direction: column; align-items: flex-start; width: 45%;">
+				    <div style="display: flex; width: 100%; align-items: center;">
+				        <label for="userId" style="width: 100px; margin-right: 10px;">ID</label>
+				        <input type="text" id="userId" name="userId" placeholder="아이디 입력" style="flex: 1;">
+				        <button class="idChk-btn" onclick="idChk()">중복검사</button>
+				    </div>
+				
+				    <!-- 메시지가 바로 아래 표시 -->
+				    <small id="idMsg"
+				           style="color:green; margin-left:110px; margin-top:4px; display:none; font-size:13px;">
+				    </small>
+				
+				    <input type="hidden" id="idChkYn" name="idChkYn" value="0">
+				</div>
+		        <div class="form-group">
+		            <label for="userNm">이름</label>
+		            <input type="text" id="userNm" name="userNm" placeholder="이름 입력">
+		        </div>
+		    </div>
+		
+		    <!-- 2번째 줄 : PW / PW 확인 -->
+		    <div class="form-row">
+		        <div class="form-group">
+		            <label for="userPw">PW</label>
+		            <input type="password" id="userPw" name="userPw" placeholder="비밀번호 입력">
+		        </div>
+		        <div class="form-group">
+		            <label for="userRePw">PW 확인</label>
+		            <input type="password" id="userRePw" name="userRePw" placeholder="비밀번호 재입력">
+		        </div>
+		    </div>
+		
+		    <!-- 3번째 줄 : 이메일 / 생년월일 -->
+		    <div class="form-row">
+		        <div class="form-group">
+		            <label for="userEmail">이메일</label>
+		            <input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력">
+		        </div>
+		        <div class="form-group">
+		            <label for="userBirth">생년월일</label>
+		            <input type="text" id="userBirth" name="userBirth" placeholder="YYYYMMDD">
+		        </div>
+		    </div>
+		
+		    <!-- 4번째 줄 : 통신사 / 휴대폰 번호 -->
+		    <div class="form-row">
+		        <div class="form-group">
+		            <label for="userTelTong">통신사</label>
+		            <select id="userTelTong" name="userTelTong">
+		                <option value="">통신사 선택</option>
+		                <option value="SKT">SKT</option>
+		                <option value="KT">KT</option>
+		                <option value="LGU">LG U+</option>
+		                <option value="SK7">SK 7모바일</option>
+		                <option value="KT알뜰">KT 알뜰폰</option>
+		                <option value="LG알뜰">LG 알뜰폰</option>
+		            </select>
+		        </div>
+		        <div class="form-group">
+		            <label for="userTelNo">핸드폰 번호</label>
+		            <input type="text" id="userTelNo" name="userTelNo" placeholder="01012345678">
+		        </div>
+		    </div>
+		
+		</div>
+	
+	    <!-- 로그인 버튼 -->
+	    <div style="margin-top: 30px;">
+	        <button class="regist-btn" onclick="regist()">회원가입</button>
+	    </div>
+</div>
+
+    <!-- 푸터 -->
+    <footer>
+        © 2025 JSPJ Project. All rights reserved.
+    </footer>
+
+</body>
+</html>

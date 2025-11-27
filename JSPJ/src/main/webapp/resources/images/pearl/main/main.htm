@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
+	<head>
+		<title>ICERT TSMS</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/common.css" />
+		<script type="text/javascript" src="js/layer.js"></script>
+		<script type="text/javascript" src="js/navi.js"></script>
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	</head>
+	<body>
+	<!-- s:SkipNv -->    
+	<ul id="skip_navigation">
+		<li><a href="#nv">주메뉴바로가기</a></li>
+		<li><a href="#cont">본문바로가기</a></li>
+		<li><a href="#foot">하단바로가기</a></li>
+	</ul>     
+	<!-- e:SkipNv // -->
+
+	<!-- s:전체영역 -->
+	<div id="Wrapper">
+
+		<!-- s:상단영역 -->
+		<div id="topArea">
+			<div class="boxT">
+				<!--//탑메뉴--><a name="nv"></a>
+				<div class="top_nvBox">
+					<a href="#" class="tcolor1">COMPANY</a>
+					<a href="#" class="tcolor2">ICERT HQ(COOP NDC)</a>
+					<span class="tcolor1">LOGIN USER<strong class="tcolor2">Admin</strong><a href="#"><img src="./image/main/admin_ico.png" alt="admin"/></a></span>
+					<input type="image" src="./image/btn/btn_logout.jpg" alt="logout"/>
+					<input type="image" src="./image/btn/btn_kor.jpg" alt="korean" /><input type="image" src="./image/btn/btn_eng.jpg" alt="english" /><input type="image" src="./image/btn/btn_vie.jpg" alt="vietnamese" />
+				</div>
+				<!--탑메뉴//-->
+				<!--//gnv-->
+				<div class="gnv">
+					<h1><img src="./image/common/logo.jpg" alt="ICERT TSMS" /></h1>
+					<div>
+						<span style="width:73px; height:13px; background:url(./image/common/bt.jpg) no-repeat 0px 3px; display:inline-block; margin-left:165px;"><a href="#">Home</a></span>
+						<span style="width:164px; height:13px; background:url(./image/common/bt.jpg) no-repeat 0px 3px; display:inline-block;"><a href="#">System Management</a></span>
+						<span style="width:110px; height:13px; background:url(./image/common/bt.jpg) no-repeat 0px 3px; display:inline-block;"><a href="#">Information</a></span>
+						<span style="width:175px; height:13px; background:url(./image/common/bt.jpg) no-repeat 0px 3px; display:inline-block;"><a href="#">SALES MANAGEMENT</a></span>
+						<span style="width:187px; height:13px; background:url(./image/common/bt.jpg) no-repeat 0px 3px; display:inline-block;"><a href="#">Accounting Management</a></span>
+						<span style="width:76px; height:13px; background:url(./image/common/bt.jpg) no-repeat 0px 3px; display:inline-block;"><a href="#">Sales</a></span>
+						<span style="width:100px; height:13px; background:url(./image/common/bt.jpg) no-repeat 0px 3px; display:inline-block;"><a href="#">Community</a></span>
+					</div>
+				</div>
+				<!--gnv//-->
+			</div>
+		</div>
+		<!-- e:상단영역 // -->
+
+		<!-- s:비주얼영역-->
+		<div id="visualArea">
+			<div class="boxB">
+				<!--//대시보드-->
+				<div id="mp_proBox">
+					<p><img src="./image/main/mp_title.png" alt="MY PAGE / PROGRESS" /><a href="#"><img src="./image/main/mp_more.gif" alt="더보기" /></a></p>
+					<div class="mp_bg" style="margin-top:12px;">
+						<span><a href="#"><img src="./image/main/mp_close.gif" alt="close" /></a></span>
+						<p>Untreated</p>
+						<div class="perc">
+							<strong>43</strong><span>%</span>
+						</div>
+					</div>
+					<div class="mp_bg" style="float:right;">
+						<span><a href="#"><img src="./image/main/mp_close.gif" alt="close" /></a></span>
+						<p>Create</p>
+						<div class="perc">
+							<strong>87</strong><span>%</span>
+						</div>
+					</div>
+					<div class="mp_bg">
+						<span><a href="#"><img src="./image/main/mp_close.gif" alt="close" /></a></span>
+						<p>Complete</p>
+						<div class="perc">
+							<strong>38</strong><span>%</span>
+						</div>
+					</div>
+					<div class="mp_bg" style="float:right;">
+						<span><a href="#"><img src="./image/main/mp_close.gif" alt="close" /></a></span>
+						<p>Successful</p>
+						<div class="perc">
+							<strong>19.5</strong><span>%</span>
+						</div>
+					</div>
+					<div class="mp_bg">
+						<span><a href="#"><img src="./image/main/mp_close.gif" alt="close" /></a></span>
+						<p>Retouch</p>
+						<div class="perc">
+							<strong>25.3</strong><span>%</span>
+						</div>
+					</div>
+				</div>
+				<!--대시보드//-->
+				<img src="./image/main/visual.jpg" alt=""/>
+			</div>
+		</div>
+		<!-- e:비주얼영역 // -->
+
+		<!-- s:콘텐츠영역 -->
+		<div id="contentsArea">
+			<div class="boxC"><a name="cont"></a>
+			<!--//weather-->
+			<div class="weather_box">
+				<p class="tit"><img src="./image/main/weather_title.gif" alt="weather" /></p>
+				<div id="wether_tap1">
+					<ul>
+						<li class="flied1"><a href="#" class="select" onclick='wether_tap1()';>Temperature</a></li>
+						<li class="flied2"><a href="#" onclick='wether_tap2()';>Precipitation</a></li>
+						<li class="flied1"><a href="#" onclick='wether_tap3()';>Wind</a></li>
+					</ul>
+					<div class="w_ico">
+						<img src="./image/main/weather_01.gif" alt=""/>
+						<strong>34º</strong><strong class="stc">24º</strong>
+					</div>
+					<dl>
+						<dd>Precipitation : 0%</dd>
+						<dd>Humidity : 58%</dd>
+						<dd>Wind : 10 mph</dd>
+					</dl>
+				</div>
+
+				<div id="wether_tap2">
+					<ul>
+						<li class="flied1"><a href="#" onclick='wether_tap1()';>Temperature</a></li>
+						<li class="flied2"><a href="#" onclick='wether_tap2()'; class="select">Precipitation</a></li>
+						<li class="flied1"><a href="#" onclick='wether_tap3()';>Wind</a></li>
+					</ul>
+					<div class="w_ico">
+						<img src="./image/main/weather_02.gif" alt=""/>
+						<strong>34º</strong><strong class="stc">24º</strong>
+					</div>
+					<dl>
+						<dd>Precipitation : 0%</dd>
+						<dd>Humidity : 58%</dd>
+						<dd>Wind : 10 mph</dd>
+					</dl>
+				</div>
+
+				<div id="wether_tap3">
+					<ul>
+						<li class="flied1"><a href="#" onclick='wether_tap1()';>Temperature</a></li>
+						<li class="flied2"><a href="#" onclick='wether_tap2()';>Precipitation</a></li>
+						<li class="flied1"><a href="#" onclick='wether_tap3()'; class="select">Wind</a></li>
+					</ul>
+					<div class="w_ico">
+						<img src="./image/main/weather_03.gif" alt=""/>
+						<strong>34º</strong><strong class="stc">24º</strong>
+					</div>
+					<dl>
+						<dd>Precipitation : 0%</dd>
+						<dd>Humidity : 58%</dd>
+						<dd>Wind : 10 mph</dd>
+					</dl>
+				</div>
+			</div>
+			<!--weather//-->
+
+			<!--//notice-->
+			<div class="notice_Box">
+				<p class="tit"><img src="./image/main/notice_title.gif" alt="notice" /><a href="#"><img src="./image/main/mp_more.gif" alt="더보기" /></a></p>
+				<ul class="list_g">
+					<li class="dot">롯데리아,소외계층 아동 돕는 '좋은 세상 만들기' 캡페인</li>
+					<li class="name">관리자</li>
+					<li class="day">08:00:35 17/11/2015</li>
+				</ul>
+				<span class="udline"></span>
+				<ul class="list_g">
+					<li class="dot">롯데리아-삼성카드, '모짜렐라 버거 1+1' 행사 진행 중 '31일...</li>
+					<li class="name">관리자</li>
+					<li class="day">08:00:35 17/11/2015</li>
+				</ul>
+				<span class="udline"></span>
+				<ul class="list_g">
+					<li class="dot">롯데리아, '모짜렐라 인 더 버거' 출시 첫날 170만개 판매</li>
+					<li class="name">관리자</li>
+					<li class="day">08:00:35 17/11/2015</li>
+				</ul>
+				<span class="udline"></span>
+				<ul class="list_g">
+					<li class="dot">롯데리아, 모짜렐라 치즈 패티 넣은 '모짜렐라 인 더 버거' ...</li>
+					<li class="name">관리자</li>
+					<li class="day">08:00:35 17/11/2015</li>
+				</ul>
+				<span class="udline"></span>
+				<ul class="list_g">
+					<li class="dot">롯데리아, 수능 앞둔 수험생 응원 할인 이벤트 진행</li>
+					<li class="name">관리자</li>
+					<li class="day">08:00:35 17/11/2015</li>
+				</ul>
+			</div>
+			<!--notice//-->
+
+			<!--//quick-->
+			<div class="quick_box">
+				<p class="tit"><img src="./image/main/quick_title.gif" alt="quick menu" /></p>
+				<span class="udline"></span>
+				<div class="q_dw">
+					<p class="s_tilte">Biz Process</p>
+					<p class="s_ojb">TSMS Version Notis</p><a href="#"><img src="./image/main/quick_001.gif" alt="" /></a>
+				</div>
+				<span class="udline"></span>
+				<div class="q_dw">
+					<p class="s_tilte">Download</p>
+					<p class="s_ojb">Manual/Forms</p><a href="#"><img src="./image/main/quick_002.gif" alt="" /></a>
+				</div>
+				<span class="udline"></span>
+				<div class="q_dw">
+					<p class="s_tilte">Q&A</p>
+					<p class="s_ojb">Questioning</p><a href="#"><img src="./image/main/quick_003.gif" alt="" /></a>
+				</div>
+				<span class="udline"></span>
+				<div class="q_dw">
+					<p class="s_tilte">USER GUIDE</p>
+					<p class="s_ojb">Manual/Forms</p><a href="#"><img src="./image/main/quick_004.gif" alt="" /></a>
+				</div>
+				<span class="udline"></span>
+			</div>
+			<!--quick//-->
+			</div>
+		</div>
+		<!-- e:콘텐츠영역 // -->
+
+		<!-- s:하단영역 -->
+		<div id="footerArea">
+			<div class="boxF"><a name="foot"></a>
+				<ul>
+					<li><img src="./image/common/footer_logo.gif" alt="" /><li>
+					<li style="padding:3px 0 0 10px;">Copyrightⓒ2016 ICERT. ALL RIGHT RESERVED.</li>
+				</ul>
+			</div>
+		</div>
+		<!-- e:하단영역 // -->
+
+	</div>
+	<!-- e:전체영역 // -->
+
+	</body>
+</html>

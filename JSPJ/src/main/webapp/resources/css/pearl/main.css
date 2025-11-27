@@ -1,0 +1,110 @@
+﻿@charset "utf-8";
+
+
+/*css선언-s*/
+html, body, div, dl, dt, dd, ul, ol, li, p {margin:0px; padding:0px; list-style:none; font-family:Arial, 'dotum';}
+body{color:#737373; font-size:12px;}
+img {border:0px; vertical-align:top;}
+img, select, input{ vertical-align:middle; font-size:inherit; font-family:Arial, inherit; line-height:inherit; }
+input.img, input.radio, input.checkbox{padding:0px; margin:0px; height:auto; border:none; background:none; vertical-align:middle;}
+em, i, address{font-style:normal; font-weight:normal;}
+textarea{resize:none; border:1px solid #d0d0d0; background:#fff;}
+a {text-decoration:none; color:inherit; font-family:Arial, 'dotum'; background:none;}
+
+/* skipnavi */
+#skip_navigation{position:relative; left:0px; top:0px; width:100%; z-index:999; line-height:0; font-size:0;}
+#skip_navigation li a{position:absolute; top:-500px; text-indent:-9999px; line-height:1; font-size:12px; color:#fff;}
+#skip_navigation li a:hover{font-size:12px; line-height:1; position:absolute; left:0px; top:0px; font-weight:bold; text-indent:0px; padding:4px 0 0 0; text-align:center; background:#027bc4; width:100%; display:block;
+	height:20px; z-index:1000; color:#fff;}
+#skip_navigation li a:focus{font-size:12px; line-height:1; position:absolute; left:0px; top:0px; font-weight:bold; text-indent:0px; padding:4px 0 0 0; text-align:center; background:#027bc4; width:100%; display:block;
+	height:20px; z-index:1000; color:#fff;}
+#skip_navigation li a:active{font-size:12px; line-height:1; position:absolute; left:0px; top:0px; font-weight:bold; text-indent:0px; padding:4px 0 0 0; text-align:center; background:#027bc4; width:100%; display:block;
+	height:20px; z-index:1000; color:#fff;}
+
+/*hidden설정-s*/
+.hid{ position:absolute; visibility:hidden; width:0px; height:0px; top:0px; left:0px; overflow:hidden; font-size:0px; float:left; clear:both;}
+.hid_Btn{display:none;}
+
+
+
+
+/*전체영역*/
+#wrapper{width:100%; position:relative; z-index:1; float:left; }
+
+
+/*탑영역*/
+#topArea{width:100%; height:60px; position:relative; left:0px; top:0px; z-index:10; background:#0078A0}
+
+
+/*top_hrBox*/
+.top_hr{ width:100%;  height:35px; background:#fdfdfd; }
+.top_hrBox{text-align:right; font-size:12px; font-family:Arial, 'Verdana, Arial, Helvetica', sans-serif; font-weight:bold;
+		  width:1055px; margin:0 auto; position:relative;  top:15px;}
+.top_hrBox a{font-size:12px; text-decoration:none; padding:0px 10px;}
+.top_hrBox .tcolor1{color:#c8c8c8;}
+.top_hrBox .tcolor2{color:#6a6a6a;}
+.top_hrBox a{font-size:12px; text-decoration:none; color: #ff4d45}
+
+.top_hrBox span{padding-left:10px;}
+.top_hrBox strong{padding-left:15px; display:inline-block;}
+
+/*비주얼영역*/
+#visualArea{width:100%; height:372px; position:relative; left:0px; top:0px; z-index:10000;background:#00aac4;}
+#visualArea .boxB{width:1055px; margin:0 auto; position:relative;}
+
+/*mp_proBox*/
+#mp_proBox{width:475px; float:left; position:absolute; right:0px; top:20px;}
+#mp_proBox p{padding-left:5px;}
+#mp_proBox p a{float:right;}
+#mp_proBox .mp_bg{width:230px; height:90px; background:#fff;  position:relative; float:left; margin:10px 0 0 0px; padding:0px;
+				  border-radius: 5px;
+    			  border: 1px solid #0078A0;
+}
+#mp_proBox .mp_bg span{position:absolute; right:15px; top:15px;}
+#mp_proBox .mp_bg p{font-family:'Arial, Verdana, Arial, Helvetica', sans-serif; font-weight:bold; color:#939698; padding:20px 0 0 20px;}
+#mp_proBox .mp_bg .perc{font-family:Arial, 'dotum'; position:relative;}
+#mp_proBox .mp_bg .perc strong{font-size:40pt;  color:#ca171e; font-weight:normal; position:absolute; left:80px; top:0px; letter-spacing:-1px; width:120px; text-align:right;}
+#mp_proBox .mp_bg .perc span{font-family:Arial, 'Verdana, Arial, Helvetica', sans-serif;font-size:13pt;  color:#939698; position:absolute; left:195px; top:	0px; visibility:hidden;}
+
+/*콘텐츠영역*/
+#contentsArea{width:100%; position:relative; left:0px; top:0px; z-index:10000;}
+#contentsArea .boxC{width:1055px; margin:0 auto; position:relative;}
+
+.popupzone_box{ float:left; margin:30px 0 0 0px;}
+.popupzone_box .tit{}
+
+
+.notice_Box{width:490px; float:left; margin:30px 45px 0 45px;}
+.notice_Box .tit{}
+.notice_Box .tit a{float:right;}
+
+.quick_box{width:200px; float:left; margin:30px 0 0px 0px;}
+.quick_box .tit{padding-bottom:12px;}
+.quick_box .udline{width:100%; height:1px; background:#e8e8e8; display:block; float:left; margin-top:0px;}
+.quick_box .q_dw{position:relative; width:100%; float:left;}
+.quick_box .q_dw .s_tilte{font-family:Arial, 'Verdana, Arial, Helvetica', sans-serif;font-size:13.1px; color:#686868; padding:6px 0 0px 0px;}
+.quick_box .q_dw .s_ojb{font-family:Arial, 'Verdana, Arial, Helvetica', sans-serif;font-size:12px; color:#939698; padding:0 0 6px 0px;}
+.quick_box .q_dw a{position:absolute; right:0px; top:0px;}
+
+
+
+/*main 테이블 타입*/
+.t_list{width:795px; border-collapse:collapse; float:left; margin:20px 0 0px 0px;}
+.t_list caption{visibility:hidden; width:0px; height:0px; overflow:hidden; font-size:0px; line-height:0px; position:absolute;}
+.t_list th{text-align:center; padding:0px 0px 0px 0px; background:url(../../images/pearl/main/thtm_bg.jpg) repeat-x left top; height:35px; }
+.t_list td{text-align:left; padding:20px 0px 20px 0px; border-bottom:1px solid #bbbbbb; font-family:Arial, 'NGB';}
+
+
+/*gnv*/
+.gnv{width:1055px; margin:0 auto; position:relative;}
+.gnv span{float:left; margin-top: 35px;
+		  background:url(../../images/common/icons-arr-20.gif) no-repeat 20px 4px;}
+.gnv h1{float: left; margin-right: 50px;}
+.gnv a{font-size:12px; font-family:Arial, 'Verdana, Arial, Helvetica', sans-serif; font-weight:bold; color:#fff; padding-left:30px;}
+
+
+/* footer */
+#footerArea{width:100%;  position:relative; left:0px; top:40px; z-index:10; height:6px; clear:both; background:url(../../images/pearl/main/footer_bg.jpg) repeat-x left 0px;}
+#footerArea .boxF{width:1055px; margin:0 auto; position:relative;}
+#footerArea .boxF ul{width:100%; display:block; padding:10px 0 0 0px;}
+#footerArea .boxF li{float:left; font-family:Arial, 'Verdana, Arial, Helvetica', sans-serif; color:#999; font-size:0.90em;}

@@ -1,0 +1,80 @@
+body {
+ font-family:Arial,  Helvetica, Sans-Serif;
+}
+
+.m-signature-pad {
+
+}
+
+.m-signature-pad:before, .m-signature-pad:after {
+
+}
+
+.m-signature-pad:after {
+
+}
+
+.m-signature-pad--body {
+
+}
+
+.m-signature-pad--body
+  canvas {
+    border: 1px solid #f4f4f4;
+      width: 100%;
+      height: 75%;
+  }
+
+.m-signature-pad--footer {
+
+}
+
+.m-signature-pad--footer
+  .description {
+
+  }
+
+.m-signature-pad--footer
+  .button {
+
+  }
+
+.m-signature-pad--footer
+  .button.clear {
+   float: left;
+   width: 50%;
+  }
+
+.m-signature-pad--footer
+  .button.save {
+   float: right;
+   width: 50%;
+  }
+
+@media screen and (max-width: 1024px) {
+  .m-signature-pad {
+
+  }
+  #github {
+
+  }
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .m-signature-pad {
+
+  }
+}
+
+@media screen and (max-height: 320px) {
+  .m-signature-pad--body {
+
+  }
+  .m-signature-pad--footer {
+
+  }
+  .m-signature-pad--footer
+    .description {
+
+    }
+}
