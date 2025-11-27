@@ -6,15 +6,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.JSPJ.demo.Mapper.homeMapper;
 import com.JSPJ.demo.Service.homeService;
 import com.JSPJ.demo.Vo.userVo;
-import com.JSPJ.demo.mapper.homeMapper;
 
 import jakarta.servlet.http.HttpSession;
 
-@Service
+@Service("homeService")
 public class homeServiceImpl implements homeService {
 
+	@Autowired
+	homeMapper homeMapper;
 	
 	   @Override
 	    public Map<String, Object> userLogin(userVo userVo, HttpSession session) {
@@ -24,7 +26,7 @@ public class homeServiceImpl implements homeService {
 	        
 	        //해당 아이디 와 패스워드가 일치하는지확인 
 	        try {
-		//		loginOk = homeMapper.userLogin(userVo);
+				loginOk = homeMapper.userLogin(userVo);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -34,10 +36,19 @@ public class homeServiceImpl implements homeService {
 	        	result.put("result", "success");
 	        }else {
 	        	result.put("result", "fail");
+	        	return result;
+	        }
+	        
+	        //로그인 성공시 
+	        userVo userInfo = new userVo();
+	        
+	        if(loginOk == 1) {
+	        	//성공한 로그인 사용자 정보 가져오기 
+	        	userInfo = homeMapper.userInfo(userVo);
 	        }
 	        
 	        //로그인성공한 정보 가져와서 세션에다가 넣기 
-	        
+	        session.setAttribute("userSession", userInfo);
 
 	        return result;
 	    }

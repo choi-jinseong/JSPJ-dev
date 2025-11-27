@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.JSPJ.demo.Service.homeService;
 import com.JSPJ.demo.Vo.userVo;
@@ -46,11 +47,21 @@ public class homeController {
 	 * @return
 	 */
 	@PostMapping("/userLogin")
+	@ResponseBody
 	public Map<String, Object> userLogin(@RequestBody userVo userVo , HttpSession session) {
 		Map<String,Object> result = new HashMap<>();
 		
 		result = homeService.userLogin(userVo, session);
 		
 		return result;
+	}
+	
+	/**
+	 * 회원가입 페이지 이동
+	 * @return
+	 */
+	@GetMapping("/userRegist")
+	public String userRegistPage() {
+		return "userRegist";
 	}
 }

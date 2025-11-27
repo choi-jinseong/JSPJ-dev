@@ -1,7 +1,14 @@
 package com.JSPJ.demo.Vo;
 
-public class userVo {
+import java.io.Serializable;
+
+public class userVo  implements Serializable  {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5267317973145418225L;
+
 	private String id;
 	
 	private String pw;
@@ -9,6 +16,18 @@ public class userVo {
 	private String name;
 	
 	private String telNo;
+	
+	private String email;
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getId() {
 		return id;

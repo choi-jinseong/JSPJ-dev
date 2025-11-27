@@ -91,6 +91,9 @@
     </style>
 </head>
 
+<body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 	function login(){
 		 // input 값 가져오기
@@ -98,14 +101,13 @@
 	    var userPw = $('#userPw').val();
 	    
 	    $.ajax({
-	        url: '/login',          // 서버 컨트롤러 매핑 경로
+	        url: '/userLogin',          
 	        type: 'POST',
-	        data: JSON.stringify({ id: userId, pw: userPw })
-	        contentType: 'application/json'
+	        data: JSON.stringify({ id: userId, pw: userPw }),
+	        contentType: 'application/json',
 	        success: function(data) {
-	            if(data.success){
+	            if(data.result.success){
 	                alert('로그인 성공!');
-	                window.location.href = '/index'; // 성공 시 이동
 	            } else {
 	                alert('로그인 실패: ' + data.message);
 	            }
@@ -116,8 +118,6 @@
 	    });
 	}
 </script>
-
-<body>
 
     <!-- 헤더 -->
     <header>

@@ -1,9 +1,12 @@
 package com.JSPJ.demo;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
+@MapperScan("com.JSPJ.demo.Mapper") // Mapper 위치
 public class JspjApplication {
 
 	public static void main(String[] args) {
