@@ -21,8 +21,18 @@ public class userVo  implements Serializable  {
 	
 	private String birth;
 	
+	private String userAuth;
 	
 	
+	
+
+	public String getUserAuth() {
+		return userAuth;
+	}
+
+	public void setUserAuth(String userAuth) {
+		this.userAuth = userAuth;
+	}
 
 	public String getBirth() {
 		return birth;

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +27,16 @@ public class homeController {
 	 * @return
 	 */
 	@GetMapping("/")
-	public String index() {
+	public String index(HttpSession session, Model model) {
 		
+	    // 세션에서 사용자 정보 꺼내기
+	    userVo loginUser = (userVo) session.getAttribute("userSession");
+	    
+	    // 로그인 되어있으면 model에 사용자 정보 담기
+	    if (loginUser != null) {
+	        model.addAttribute("user", loginUser);
+	    }
+	    
 		return "index";
 	}
 	
@@ -54,6 +63,26 @@ public class homeController {
 		result = homeService.userLogin(userVo, session);
 		
 		return result;
+	}
+	
+	/**
+	 * 로그아웃
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+
+	    // 개별 세션 값 삭제
+	    session.removeAttribute("userSession");
+
+	    // 전체 세션 만료 (선택)
+	    session.invalidate();
+
+	    // 메인페이지로 리다이렉트
+	    return "redirect:/";
+		
 	}
 	
 	/**

@@ -13,6 +13,147 @@
 		<noscript><link rel="stylesheet" href="/resources/css/JSPJ/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<script>
+			//로그인
+		    function login(){
+		        var userId = $('#userId').val();
+		        var userPw = $('#userPw').val();
+		        
+		        if(userId == "" || userId == null){
+		        	alert("아이디를 입력해주세요");
+		        	return;
+		        }
+		        
+		        if(userPw == "" || userPw == null){
+		        	alert("비밀번호를 입력해주세요");
+		        	return;
+		        }
+		
+		        $.ajax({
+		            url: '/userLogin',
+		            type: 'POST',
+		            data: JSON.stringify({ id: userId, pw: userPw }),
+		            contentType: 'application/json',
+		            success: function(data) {
+		                if(data.result == "success"){
+		                    alert('로그인 성공!');
+		                    location.href="/";
+		                } else {
+		                    alert('로그인 실패: ' + data.message);
+		                }
+		            },
+		            error: function(xhr, status, error) {
+		                console.error('로그인 중 오류:', error);
+		            }
+		        });
+		    }
+			
+			/* 회원가입 */
+			function regist(){
+				
+			   /* 아이디 중복검사한지 확인 */
+			   if ($("#idChkYn").val() !== "1") {
+			        alert("아이디 중복검사를 진행해주세요.");
+			        return;
+			    }
+			   
+			   /* 비밀번호확인  */
+			   if($("#userPw").val() != $("#userRePw").val()){
+				   alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+				   return;
+			   }
+			   
+			   if( $('#userId').val() == "" || $('#userId').val() == null){
+				   alert("아이디를 입력해주세요");
+				   return;
+			   }
+			   
+			   if( $('#userPw').val() == "" || $('#userPw').val() == null){
+				   alert("비밀번호를 입력해주세요");
+				   return;
+			   }
+			   
+			   if( $('#userNm').val() == "" || $('#userNm').val() == null){
+				   alert("사용자이름을 입력해주세요");
+				   return;
+			   }
+			   
+			    var dataInfo = {};
+				 // input 값 가져오기
+			    var userId = $('#userId').val();
+			    var userPw = $('#userPw').val();
+			    var userNm = $('#userNm').val();
+			    var userEmail = $('#userEmail').val();
+			    var userBirth = $('#userBirth').val();
+			    var userTelNo = $('#userTelNo').val();
+			    
+			    dataInfo.id = userId;
+			    dataInfo.pw = userPw;
+			    dataInfo.name = userNm;
+			    dataInfo.email = userEmail;
+			    dataInfo.birth = userBirth;
+			    dataInfo.telNo =  userTelNo;
+			    
+			    $.ajax({
+			        url: '/userRegist',          
+			        type: 'POST',
+			        data: JSON.stringify(dataInfo),
+			        contentType: 'application/json',
+			        success: function(data) {
+			            if(data == "success"){
+			                alert('회원가입 성공! 가입하신 아이디로 로그인 부탁 드립니다.');
+			                location.href="/"; 
+			            } else {
+			                alert('로그인 실패: ' + data.message);
+			            }
+			        },
+			        error: function(xhr, status, error) {
+			            console.error('로그인 중 오류:', error);
+			        }
+			    });
+			}
+			
+			/* 아이디중복검사 */
+			function idChk(){
+				 // input 값 가져오기
+				
+			    var userId = $('#userId').val();
+			    
+			    $.ajax({
+			        url: '/userIdChk',          
+			        type: 'POST',
+			        data: JSON.stringify({ id: userId}),
+			        contentType: 'application/json',
+			        success: function(data) {
+			            if(data == "success"){
+			            	// 성공 시
+			                $('#userId').prop('disabled', true);
+			                $('#idChkBtn').prop('disabled', true);
+			                // 🔥 히든값: 중복검사 성공
+			                $('#idChkYn').val('1');
+			                
+			                $('#idMsg')
+			                    .text('해당 아이디는 사용이 가능합니다.')
+			                    .css('color', 'green')
+			                    .show();
+			            } else {
+			                // 실패 시
+			                $('#idMsg')
+			                    .text('중복된 아이디가 존재합니다.')
+			                    .css('color', 'red')
+			                    .show();
+			                // 실패 시
+			                $('#idChkYn').val('0');  // 🔥 실패 표시
+
+			            }
+			        },
+			        error: function(xhr, status, error) {
+			            console.error('로그인 중 오류:', error);
+			        }
+			    });		
+			}
+		</script>
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -33,8 +174,16 @@
 							<ul>
 								<li><a href="#intro">Intro</a></li>
 								<li><a href="#work">Work</a></li>
-								<li><a href="/login">Login</a></li>
-								<li><a href="/userRegist">Regist</a></li>
+								<li th:if="${user == null or user == ''}"><a href="#login">Login</a></li>
+								<li th:if="${user == null or user == ''}"><a href="#regist">Regist</a></li>
+								<li th:if="${user != null}">
+									<a href="/list">list</a>
+								</li>
+								<li th:if="${user != null}">
+									<a href="/logout">logout</a>
+								</li>
+								<!-- <li><a href="/login">Login</a></li> -->
+								<!-- <li><a href="/userRegist">Regist</a></li> -->
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
 						</nav>
@@ -58,7 +207,122 @@
 								<p>Adipiscing magna sed dolor elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices.</p>
 								<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet feugiat tempus.</p>
 							</article>
+							
+						<!-- Login -->
+							<!-- 세션에 사용자정보가 있을때 -->
+								<article id="list" style="text-align: center;">
+								</article>
+							<!-- 세션에 사용자정보가 없을때 -->
+								<article id="login" style="text-align: center;">
+								    <h2 class="major" style="position: relative; justify-self: anchor-center;">Login</h2>
+								
+								    <!-- ID -->
+								    <div style="margin-bottom: 20px;">
+								        <input type="text" id="userId" name="userId" placeholder="아이디 입력"
+								            style="
+								                width: 300px;
+								                padding: 10px;
+								                border-radius: 6px;
+								                border: 1px solid #ccc;
+								                display: block;
+								                margin: 0 auto;
+								            ">
+								    </div>
+								
+								    <!-- PW -->
+								    <div style="margin-bottom: 20px;">
+								        <input type="password" id="userPw" name="userPw" placeholder="비밀번호 입력"
+								            style="
+								                width: 300px;
+								                padding: 10px;
+								                border-radius: 6px;
+								                border: 1px solid #ccc;
+								                display: block;
+								                margin: 0 auto;
+								            ">
+								    </div>
+								
+								    <!-- 로그인 버튼 -->
+								    <button onclick="login()"
+								        style="
+								            color: white;
+								            border: none;
+								            border-radius: 8px;
+								            cursor: pointer;
+								            font-size: 16px;
+								            font-weight: bold;
+								            margin-top: 10px;
+								        ">
+								        로그인
+								    </button>
+								</article>
+						<!-- Regist -->
+							<article id="regist" style="text-align: center; margin-top: 40px;">
 
+							    <h2 class="major" style="position: relative; justify-self: anchor-center;">회원가입</h2>
+							
+							    <!-- ID + 중복검사 버튼 -->
+							    <div style="margin-bottom: 20px; display: flex; justify-content: center; align-items: center; gap: 10px;">
+							        <input type="text" id="userId" name="userId" placeholder="아이디 입력"
+							            style="width: 220px; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+							        <button onclick="idChk()"
+							            style="border: none; border-radius: 6px; cursor: pointer;">
+							            중복검사
+							        </button>
+							        <input type="hidden" id="idChkYn" value="0">
+							    </div>
+							    <small id="idMsg" style="color: green; display: block; margin-bottom: 10px;"></small>
+							
+							    <!-- PW -->
+							    <div style="margin-bottom: 20px;">
+							        <input type="password" id="userPw" name="userPw" placeholder="비밀번호 입력"
+							            style="width: 333px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; display: block; margin: 0 auto;">
+							    </div>
+							
+							    <!-- PW 확인 -->
+							    <div style="margin-bottom: 20px;">
+							        <input type="password" id="userRePw" name="userRePw" placeholder="비밀번호 확인 입력"
+							            style="width: 333px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; display: block; margin: 0 auto;">
+							    </div>
+							
+							    <!-- 이름 -->
+							    <div style="margin-bottom: 20px;">
+							        <input type="text" id="userNm" name="userNm" placeholder="이름 입력"
+							            style="width: 333px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; display: block; margin: 0 auto;">
+							    </div>
+							
+							    <!-- 이메일 -->
+							    <div style="margin-bottom: 20px;">
+							        <input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력"
+							            style="width: 333px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; display: block; margin: 0 auto;">
+							    </div>
+							
+							    <!-- 생년월일 -->
+							    <div style="margin-bottom: 20px;">
+							        <input type="text" id="userBirth" name="userBirth" placeholder="생년월일 8자리 (예: 19990101)"
+							            style="width: 333px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; display: block; margin: 0 auto;">
+							    </div>
+							
+							    <!-- 번호 -->
+							    <div style="margin-bottom: 20px;">
+							        <input type="text" id="phoneNum" name="phoneNum" placeholder="휴대폰 번호 입력 ( - 없이 )"
+							            style="width: 333px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; display: block; margin: 0 auto;">
+							    </div>
+							
+							    <!-- 회원가입 버튼 -->
+							    <button onclick="regist()"
+							        style="
+							            border: none;
+							            border-radius: 8px;
+							            cursor: pointer;
+							            font-size: 16px;
+							            font-weight: bold;
+							            margin-top: 10px;
+							        ">
+							        회원가입
+							    </button>
+							
+							</article>
 						<!-- About -->
 							<article id="about">
 								<h2 class="major">About</h2>
