@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>등록현황</title>
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.min.css" />
+
     <style>
         body {
             margin: 0;
@@ -10,77 +12,62 @@
             background: #f6f7fb;
         }
 
-        /* 헤더 */
-		header {
-		    background: #f2f7f8; 
-		    color: #333;       
-		    padding: 15px 20px;
-		    font-size: 22px;
-		    font-weight: bold;
-		    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-		
-		    display: flex;
-		    align-items: center;
-		    gap: 40px; /* 로고와 메뉴 간 간격 */
-		}
-		
-		/* 메뉴 영역 */
-		.top_menu {
-		    display: flex;
-		    align-items: center;
-		    gap: 20px; /* 메뉴 아이템 간 간격 */
-		}
-		
-		.top_menu a {
-		    text-decoration: none;
-		    color: #4a6cf7; /* 메뉴 글씨 파란색 */
-		    font-weight: 500;
-		    transition: 0.2s;
-		}
-		
-		.top_menu a:hover {
-		    color: #1a40d1; /* 호버 시 진한 파랑 */
-		}
-
-
-        /* 콘텐츠 */
-        .content {
-            max-width: 1000px;
-            margin: 30px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            text-align: center;
+        header {
+            background: #f2f7f8;
+            color: #333;
+            padding: 15px 20px;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 40px;
         }
 
+        .top_menu {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .top_menu a {
+            text-decoration: none;
+            color: #4a6cf7;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .top_menu a:hover {
+            color: #1a40d1;
+        }
+
+       .content {
+		    max-width: none;       /* 화면 끝까지 사용 */
+		    margin: 30px 0;
+		    background: white;
+		    padding: 20px;
+		    border-radius: 12px;
+		    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+		    text-align: left;
+		    overflow: visible;     /* 상위 스크롤 제거 */
+		}
+        
         .content h2 {
             margin-bottom: 20px;
             color: #333;
         }
 
 		.businessArea {
-            max-width: 850px;
-            margin: 30px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-        
-        .pwArea {
-            max-width: 600px;
-            margin: 30px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-        
-        
-        /* 푸터 */
+		    width: 100%;
+		    padding: 0;            /* 불필요한 패딩 제거 */
+		    margin: 0;
+		    background: none;      /* 배경 흰색 제거 */
+		    box-shadow: none;      /* 그림자 제거 */
+		    border-radius: 0;
+		    height: 70vh;          /* 부모 컨테이너 높이를 화면 비율로 지정 */
+    		overflow: hidden;      /* 스크롤은 그리드에서만 발생 */
+		}
+
         footer {
             margin-top: 40px;
             background: #eee;
@@ -90,279 +77,174 @@
             font-size: 14px;
         }
         
+        /* TOAST UI Grid 테이블 스타일 튜닝 */
+        .tui-grid-header {
+            background-color: #4a6cf7;
+            color: white;
+            font-weight: bold;
+        }
+        .tui-grid-cell {
+            padding: 5px 10px;
+        }
+        .tui-grid-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .tui-grid-row:hover {
+            background-color: #e8f0fe;
+        }
+        a.grid-link {
+            cursor: pointer;
+        }
         
-        /* 셀렉트 박스 공통 스타일 */
-		select {
-		    width: 150px;
-		    padding: 8px;
-		    border-radius: 6px;
-		    border: 1px solid #ccc;
-		    background: white;
-		    font-size: 14px;
-		    transition: 0.2s ease-in-out;
+        .grid-clickable {
 		    cursor: pointer;
+		    color: inherit;       /* 글자색 기존대로 */
+		    text-decoration: none; /* 밑줄 제거 */
 		}
-		
-		/* hover 시 부드럽게 */
-		select:hover {
-		    border-color: #4a6cf7;
-		    background: #f0f4ff;
-		}
-		
-		/* 포커스 시 */
-		select:focus {
-		    outline: none;
-		    border-color: #4a6cf7;
-		    box-shadow: 0 0 5px rgba(74,108,247,0.4);
-		}
-
-
-		/* 한 줄을 가로로 2칸 정렬하는 영역 */
-		.form-row {
-		    display: flex;
-		    justify-content: space-between;
-		    align-items: center;
-		    margin-top: 25px;
-		}
-		
-		/* 라벨 + input 묶음 */
-		.form-group {
-		    width: 45%;
-		    display: flex;
-		    align-items: center; 
-		}
-		
-		/* 라벨 */
-		.form-group label {
-		    width: 100px; 
-		    margin-right: 10px;
-		    font-weight: bold;
-		    text-align: right;
-		}
-		
-		.form-group input,
-		.form-group select {
-		    flex: 1;     /* 남은 공간 모두 사용 */
-		    padding: 8px;
-		    border-radius: 6px;
-		    border: 1px solid #ccc;
-		}
-		
-		.idChk-btn:disabled {
-		    background: #c2c2c2;
-		    cursor: not-allowed;
+		.grid-clickable:hover {
+		    background-color: #e8f0fe; /* 호버 시 연한 배경색 */
 		}
     </style>
 </head>
 
 <body>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- 헤더 -->
+<header>
+    <div>
+        <span class="image main"><img src="/resources/images/pearl/main/jspj.png" alt="" style="width: 133px;"></span>
+    </div>
+    <div class="top_menu">
+	    <th:block th:each="item : ${menuList}">
+	        <a th:href="${item.menuUrl}" style="color:black;" th:text="${item.title != null ? item.title : 'Untitled'}"></a>
+	    </th:block>
+	</div>
+</header>
 
-<script>
-
-	/* 회원가입 */
-	function regist(){
-		
-	   /* 아이디 중복검사한지 확인 */
-	   if ($("#idChkYn").val() !== "1") {
-	        alert("아이디 중복검사를 진행해주세요.");
-	        return;
-	    }
-	   
-	   /* 비밀번호확인  */
-	   if($("#userPw").val() != $("#userRePw").val()){
-		   alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
-		   return;
-	   }
-	   
-	   if( $('#userId').val() == "" || $('#userId').val() == null){
-		   alert("아이디를 입력해주세요");
-		   return;
-	   }
-	   
-	   if( $('#userPw').val() == "" || $('#userPw').val() == null){
-		   alert("비밀번호를 입력해주세요");
-		   return;
-	   }
-	   
-	   if( $('#userNm').val() == "" || $('#userNm').val() == null){
-		   alert("사용자이름을 입력해주세요");
-		   return;
-	   }
-	   
-	    var dataInfo = {};
-		 // input 값 가져오기
-	    var userId = $('#userId').val();
-	    var userPw = $('#userPw').val();
-	    var userNm = $('#userNm').val();
-	    var userEmail = $('#userEmail').val();
-	    var userBirth = $('#userBirth').val();
-	    var userTelNo = $('#userTelNo').val();
-	    
-	    dataInfo.id = userId;
-	    dataInfo.pw = userPw;
-	    dataInfo.name = userNm;
-	    dataInfo.email = userEmail;
-	    dataInfo.birth = userBirth;
-	    dataInfo.telNo =  userTelNo;
-	    
-	    $.ajax({
-	        url: '/userRegist',          
-	        type: 'POST',
-	        data: JSON.stringify(dataInfo),
-	        contentType: 'application/json',
-	        success: function(data) {
-	            if(data == "success"){
-	                alert('회원가입 성공! 가입하신 아이디로 로그인 부탁 드립니다.');
-	                location.href="/"; 
-	            } else {
-	                alert('로그인 실패: ' + data.message);
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            console.error('로그인 중 오류:', error);
-	        }
-	    });
-	}
-	
-	/* 아이디중복검사 */
-	function idChk(){
-		 // input 값 가져오기
-		
-	    var userId = $('#userId').val();
-	    
-	    $.ajax({
-	        url: '/userIdChk',          
-	        type: 'POST',
-	        data: JSON.stringify({ id: userId}),
-	        contentType: 'application/json',
-	        success: function(data) {
-	            if(data == "success"){
-	            	// 성공 시
-	                $('#userId').prop('disabled', true);
-	                $('#idChkBtn').prop('disabled', true);
-	                // 🔥 히든값: 중복검사 성공
-	                $('#idChkYn').val('1');
-	                
-	                $('#idMsg')
-	                    .text('해당 아이디는 사용이 가능합니다.')
-	                    .css('color', 'green')
-	                    .show();
-	            } else {
-	                // 실패 시
-	                $('#idMsg')
-	                    .text('중복된 아이디가 존재합니다.')
-	                    .css('color', 'red')
-	                    .show();
-	                // 실패 시
-	                $('#idChkYn').val('0');  // 🔥 실패 표시
-
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            console.error('로그인 중 오류:', error);
-	        }
-	    });		
-	}
-</script>
-
-    <!-- 헤더 -->
-    <header>
-        <div>
-        	<span class="image main"><img src="/resources/images/pearl/main/jspj.png" alt="" style="width: 133px;" /></span>
-        </div>
-       
-	    <!-- 메뉴 -->
-	    <div class="top_menu">
-	        <th:block th:each="item : ${menuList}">
-	            <a href="${item.menuUrl}" style="color:black;" th:text="${item.title != null ? item.title : 'Untitled'}"></a>
-	        </th:block>
-	    </div>
-        
-    </header>
-
-    <!-- 메인 콘텐츠 -->
-	 <div class="content">
-	    <h2>등록현황</h2>
-	
-	    <!-- 회원가입 -->
-		 <div class="businessArea">
-	
-		    <!-- 1번째 줄 : ID / 이름 -->
-		    <div class="form-row">
-		        <div class="form-group" style="flex-direction: column; align-items: flex-start; width: 45%;">
-				    <div style="display: flex; width: 100%; align-items: center;">
-				        <label for="userId" style="width: 100px; margin-right: 10px;">ID</label>
-				        <input type="text" id="userId" name="userId" placeholder="아이디 입력" style="flex: 1;">
-				        <button class="idChk-btn" onclick="idChk()">중복검사</button>
-				    </div>
-				
-				    <!-- 메시지가 바로 아래 표시 -->
-				    <small id="idMsg"
-				           style="color:green; margin-left:110px; margin-top:4px; display:none; font-size:13px;">
-				    </small>
-				
-				    <input type="hidden" id="idChkYn" name="idChkYn" value="0">
-				</div>
-		        <div class="form-group">
-		            <label for="userNm">이름</label>
-		            <input type="text" id="userNm" name="userNm" placeholder="이름 입력">
-		        </div>
-		    </div>
-		
-		    <!-- 2번째 줄 : PW / PW 확인 -->
-		    <div class="form-row">
-		        <div class="form-group">
-		            <label for="userPw">PW</label>
-		            <input type="password" id="userPw" name="userPw" placeholder="비밀번호 입력">
-		        </div>
-		        <div class="form-group">
-		            <label for="userRePw">PW 확인</label>
-		            <input type="password" id="userRePw" name="userRePw" placeholder="비밀번호 재입력">
-		        </div>
-		    </div>
-		
-		    <!-- 3번째 줄 : 이메일 / 생년월일 -->
-		    <div class="form-row">
-		        <div class="form-group">
-		            <label for="userEmail">이메일</label>
-		            <input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력">
-		        </div>
-		        <div class="form-group">
-		            <label for="userBirth">생년월일</label>
-		            <input type="text" id="userBirth" name="userBirth" placeholder="YYYYMMDD">
-		        </div>
-		    </div>
-		
-		    <!-- 4번째 줄 : 통신사 / 휴대폰 번호 -->
-		    <div class="form-row">
-		        <div class="form-group">
-		            <label for="userTelTong">통신사</label>
-		            <select id="userTelTong" name="userTelTong">
-		                <option value="">통신사 선택</option>
-		                <option value="SKT">SKT</option>
-		                <option value="KT">KT</option>
-		                <option value="LGU">LG U+</option>
-		                <option value="SK7">SK 7모바일</option>
-		                <option value="KT알뜰">KT 알뜰폰</option>
-		                <option value="LG알뜰">LG 알뜰폰</option>
-		            </select>
-		        </div>
-		        <div class="form-group">
-		            <label for="userTelNo">핸드폰 번호</label>
-		            <input type="text" id="userTelNo" name="userTelNo" placeholder="01012345678">
-		        </div>
-		    </div>
-		
-		</div>
-	
+<!-- 콘텐츠 -->
+<div class="content">
+    <h2>등록현황</h2>
+    <div class="businessArea">
+        <div id="businessGrid" style="height: 400px;"></div>
+    </div>
 </div>
 
-    <!-- 푸터 -->
-    <footer>
-        © 2025 JSPJ Project. All rights reserved.
-    </footer>
+<footer>
+    © 2025 JSPJ Project. All rights reserved.
+</footer>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- TOAST UI Grid JS -->
+<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.min.js"></script>
+
+<script>
+$(document).ready(function() {
+	
+	const gridContainer = document.getElementById('businessGrid');
+	
+	// 페이징 처리용 설정
+    const rowsPerPage = 10;
+    let currentPage = 1;
+    let fullData = [];
+    
+    // 1. 그리드 생성
+    const grid = new tui.Grid({
+        el: gridContainer,
+        scrollX: true,
+        scrollY: 'auto',
+        rowHeight: 36,
+        columns: [
+            { header: '등록아이디', name: 'registId', width: 120 , hidden:'hidden' },
+            {
+                header: '등록명',
+                name: 'registNm',
+                width: 300,
+                formatter: function(item) {
+                    // 링크처럼 안보이게, 커서만 pointer
+                    return `<span class="grid-clickable" data-id="${item.rowKey}">📄 ${item.value}</span>`;
+                }
+            },
+            { header: '회사명', name: 'companyNm', width: 250 },
+            { header: '담당자명', name: 'managerNm', width: 120 },
+            { header: '상품명', name: 'productNm', width: 250 },
+            { header: '상품갯수', name: 'productCnt', width: 120 },
+            { header: '상품가격', name: 'price', width: 120 },
+            {
+                header: '진행상태',
+                name: 'state',
+                width: 140,
+                formatter: function(item) {
+                	if(item.value == 'A'){
+                		return '등록완료';
+                	}else if(item.value == 'B'){
+                		return '진행중';
+                	}else{
+                		return '';
+                	}
+                 
+                }
+            },
+            { header: '등록일시', name: 'createAt', width: 140 }
+        ],
+        data: fullData,        // 초기 데이터
+        bodyHeight: gridContainer.clientHeight  // 부모 컨테이너 높이에 맞춤
+    });
+    
+    
+ 	// 창 크기 변경시 그리드 높이 동기화
+    window.addEventListener('resize', function() {
+        grid.setBodyHeight(gridContainer.clientHeight);
+    });
+ 
+ 	// 2. 클릭 이벤트 바로 등록
+    grid.on('click', function(ev) {
+        if(ev.targetType === 'cell' && ev.columnName === 'registNm') {
+            const id = ev.rowKey; // rowKey를 이용해서 상세페이지 이동
+            window.location.href = `/detail/${id}`;
+        }
+    });
+
+    
+    function renderPage(page) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageData = fullData.slice(start, end);
+        grid.resetData(pageData);
+        renderPagination(page);
+    }
+
+    function renderPagination(page) {
+        const totalPages = Math.ceil(fullData.length / rowsPerPage);
+        let html = '';
+        for (let i = 1; i <= totalPages; i++) {
+            html += `<a href="#" class="page-link" style="margin:0 3px; ${i===page?'font-weight:bold;':''}">${i}</a>`;
+        }
+        $('#pagination').html(html);
+
+        $('.page-link').click(function(e) {
+            e.preventDefault();
+            const selectedPage = parseInt($(this).text());
+            currentPage = selectedPage;
+            renderPage(currentPage);
+        });
+    }
+    
+    // 2. AJAX로 데이터 조회
+    $.ajax({
+        url: '/registInfoList',
+        type: 'GET',
+        success: function(data) {
+        	  fullData = data; // 전체 데이터 저장
+              renderPage(currentPage);
+        },
+        error: function(xhr, status, error) {
+            console.error("데이터 조회 실패:", error);
+        }
+    });
+
+});
+</script>
 
 </body>
 </html>

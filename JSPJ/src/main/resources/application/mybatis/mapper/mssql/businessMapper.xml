@@ -1,0 +1,56 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.JSPJ.demo.Mapper.businessMapper">
+
+	<resultMap id="registMap" type="com.JSPJ.demo.Vo.businessVo">
+		<result column="REGIST_ID"				property="registId" />			<!-- 프로그램 아이디 					-->
+		<result column="REGIST_NAME"			property="registNm" />			<!-- 프로그램 아이디 					-->
+		<result column="COMPANY_NAME"      		property="companyNm" />			<!-- 프로그램 경로	 				-->
+		<result column="MANAGER_NAME"        	property="managerNm" />				<!-- 프로그램명칭 						-->
+		<result column="PRODUCT_NAME"        	property="productNm" />				<!-- 사용유무 						-->
+		<result column="PRODUCT_CNT"        	property="productCnt" />				<!-- 사용유무 						-->
+		<result column="PRICE"        			property="price" />				<!-- 사용유무 						-->
+		<result column="STATE"        			property="state" />				<!-- 사용유무 						-->
+		<result column="CREATED_AT"        		property="createAt" />				<!-- 사용유무 						-->
+	</resultMap>
+	
+
+	<!-- 공통 메뉴 조회 -->
+	<select id="selectRegistInfoList" parameterType="String" resultMap="registMap">
+		SELECT REGIST_ID			-- 등록아이디 
+		      , REGIST_NAME			--등록명
+			  , COMPANY_NAME			-- 회사명
+			  , MANAGER_NAME			-- 담당자명
+			  , PRODUCT_NAME          -- 제품명
+              , PRODUCT_CNT                     -- 제품 개수
+              , PRICE                           -- 가격
+              , STATE 					-- 상태
+              , FORMAT(CREATED_AT, 'yyyy-MM-dd') AS CREATED_AT
+		FROM REGIST_INFO
+	</select>
+	
+	<!-- 상품등룩 -->
+	<insert id="insProductRegist" parameterType="com.JSPJ.demo.Vo.businessVo">
+		INSERT INTO REGIST_INFO 
+			(
+			REGIST_NAME
+			, COMPANY_NAME
+			, MANAGER_NAME
+			, PRODUCT_NAME
+			, PRODUCT_CNT
+			, PRICE
+			, STATE
+			)
+		VALUES
+			('상품등록'
+			 ,#{companyNm}
+			 ,#{managerNm}
+			 ,#{productNm}
+			 ,#{productCnt}
+			 ,#{price}
+			 ,#{state}
+			 )
+	</insert>
+	
+</mapper>
