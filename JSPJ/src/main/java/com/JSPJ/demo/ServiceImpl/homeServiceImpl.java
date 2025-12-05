@@ -82,6 +82,10 @@ public class homeServiceImpl implements homeService {
    public String userRegist(userVo userVo) {
 	   String result = "fail";
 	   
+	   //일반회원 가입 이므로 권한 일반회원으로 줌 (관리자는 사용자관리에서 등록)
+	   //일반회원  user 관리자 admin 
+	   userVo.setUserAuth("user");
+	   
 	   //화면에서 입력한 정보 등록
 	   int regist = homeMapper.userRegist(userVo);
 	   

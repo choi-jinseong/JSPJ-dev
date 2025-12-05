@@ -6,6 +6,7 @@
 	<resultMap id="userInfoMap" type="com.JSPJ.demo.Vo.userVo">
 		<result column="USER_ID"				property="id" />			<!-- 프로그램 아이디 					-->
 		<result column="USERNAME"      		property="name" />			<!-- 프로그램 부모 아이디	 				-->
+		<result column="USER_AUTH"      		property="userAuth" />			<!-- 프로그램 부모 아이디	 				-->
 		<result column="EMAIL"        			property="email" />				<!-- 프로그램명칭 						-->
 	</resultMap>
 	
@@ -21,6 +22,7 @@
 	<select id="userInfo" parameterType="com.JSPJ.demo.Vo.userVo" resultMap="userInfoMap">
 		SELECT USER_ID
 				,USERNAME
+				,USER_AUTH
 				,EMAIL
 		FROM USER_INFO
 		WHERE USER_ID = #{id}
@@ -39,6 +41,7 @@
 			(USER_ID
 			,PASSWORD
 			,USERNAME
+			,USER_AUTH
 			,EMAIL
 			,TELNO
 			,BIRTH
@@ -47,6 +50,7 @@
 			#{id}
 			,#{pw}
 			,#{name}
+			,#{userAuth}
 			,#{email}
 			,#{telNo}
 			,#{birth}

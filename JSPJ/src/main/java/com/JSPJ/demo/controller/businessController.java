@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.JSPJ.demo.Service.businessService;
@@ -36,17 +37,28 @@ public class businessController {
 	 * @return
 	 */
 	@GetMapping("/producdtReg")
-	public String businessRegistInit(HttpSession session, Model model) {
+	public String businessRegistInit(@RequestParam(value="registId", required=false) String registId,HttpSession session,Model model) {
+	    
+		// 세션에서 사용자 정보 꺼내기
+		userVo loginUser = (userVo) session.getAttribute("userSession");
 		
-		String userAuth = "common";
-		// 헤더에 보여줄 메뉴 조회 
-		List<menuVo> menuList = commonService.menuList(userAuth);
-		
-	    if (menuList != null) {
-	        model.addAttribute("menuList", menuList);
+		String userAuth = loginUser.getUserAuth();
+
+		model.addAttribute("auth",userAuth);
+
+	    // 헤더 메뉴
+	    List<menuVo> menuList = commonService.menuList(userAuth);
+	    model.addAttribute("menuList", menuList);
+
+	    // registId 가 전달된 경우 → 해당 등록 정보 조회
+	    if(registId != null && !registId.isEmpty()) {
+	        businessVo regProductVo = businessService.selectRegProduct(registId);
+	        model.addAttribute("regProductVo", regProductVo);
 	    }
-		
-		return "businessRegist";
+	    
+	    //사용자 권한 확인 
+
+	    return "businessRegist";
 	}
 	
 	/**
@@ -63,6 +75,22 @@ public class businessController {
 		
 		return result;
 	}
+	
+	/**
+	 * 상품 임시저장
+	 * @param businessVo
+	 * @return
+	 */
+	@PostMapping("/insTempProductRegist")
+	@ResponseBody
+	public String insTempProductRegist(@RequestBody businessVo businessVo) {
+		String result = "fail";
+		
+		result = businessService.insTempProductRegist(businessVo);
+		
+		return result;
+	}
+	
 	
 	/**
 	 * 등록현황 조회 리스트 화면 

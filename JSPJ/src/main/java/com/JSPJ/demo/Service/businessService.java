@@ -18,4 +18,18 @@ public interface businessService {
 	 * @return
 	 */
 	public String insProductRegist(businessVo businessVo);
+	
+	/**
+	 * 상품 임시저장
+	 * @param businessVo
+	 * @return
+	 */
+	public String insTempProductRegist(businessVo businessVo);
+	
+	/**
+	 * 해당 상품등록건 조회
+	 * @param registId
+	 * @return
+	 */
+	public businessVo selectRegProduct(String registId);
 }

@@ -21,4 +21,19 @@ public interface businessMapper {
 	 * @return
 	 */
 	int insProductRegist(businessVo businessVo);
+	
+	/**
+	 * 상품 임시저장
+	 * @param businessVo
+	 * @return
+	 */
+	int insTempProductRegist(businessVo businessVo);
+	
+	/**
+	 * 상품등록 건 조회 
+	 * @param param
+	 * @return
+	 */
+	 businessVo selectRegProduct(String param);
+	
 }

@@ -179,7 +179,9 @@ $(document).ready(function() {
                 		return '등록완료';
                 	}else if(item.value == 'B'){
                 		return '진행중';
-                	}else{
+                	}else if(item.value == 'Z'){
+						return '임시저장';
+					}else{
                 		return '';
                 	}
                  
@@ -200,8 +202,11 @@ $(document).ready(function() {
  	// 2. 클릭 이벤트 바로 등록
     grid.on('click', function(ev) {
         if(ev.targetType === 'cell' && ev.columnName === 'registNm') {
-            const id = ev.rowKey; // rowKey를 이용해서 상세페이지 이동
-            window.location.href = `/detail/${id}`;
+			const rowData = grid.getRow(ev.rowKey); // 클릭한 row 전체 데이터
+			const registId = rowData.registId;      // registId 추출
+			
+			// 상세페이지로 registId 전달
+			window.location.href = `/producdtReg?registId=` + registId;
         }
     });
 

@@ -33,13 +33,40 @@ public class businessServiceImpl implements businessService {
 	public String insProductRegist(businessVo businessVo) {
 		String result = "fail";
 		
-		//A 등록완료 B 진행중 
-		String state = "A";
-		businessVo.setState(state);
-		
 		//상품등록
 		int resultFg = businessMapper.insProductRegist(businessVo);
 		
+		if(resultFg == 1) {
+			result = "success";
+		}
+		
 		return result;
+	}
+	
+	/**
+	 * 상품임시저장
+	 */
+	@Override
+	public String insTempProductRegist(businessVo businessVo) {
+		String result = "fail";
+		
+		//상품 임시저장
+		int resultFg = businessMapper.insTempProductRegist(businessVo);
+		
+		if(resultFg == 1) {
+			result = "success";
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 최근 상품등록건 조회 
+	 */
+	@Override
+	public businessVo selectRegProduct (String registId) {
+		businessVo productRegVo = businessMapper.selectRegProduct(registId);
+		
+		return productRegVo;
 	}
 }

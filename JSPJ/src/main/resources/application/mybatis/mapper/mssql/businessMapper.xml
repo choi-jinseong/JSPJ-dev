@@ -16,7 +16,7 @@
 	</resultMap>
 	
 
-	<!-- 공통 메뉴 조회 -->
+	<!-- 상품목록 조회 -->
 	<select id="selectRegistInfoList" parameterType="String" resultMap="registMap">
 		SELECT REGIST_ID			-- 등록아이디 
 		      , REGIST_NAME			--등록명
@@ -52,5 +52,43 @@
 			 ,#{state}
 			 )
 	</insert>
+	
+	<!--상품 임시저장-->
+	<insert id="insTempProductRegist" parameterType="com.JSPJ.demo.Vo.businessVo">
+		INSERT INTO REGIST_INFO 
+			(
+			REGIST_NAME
+			, COMPANY_NAME
+			, MANAGER_NAME
+			, PRODUCT_NAME
+			, PRODUCT_CNT
+			, PRICE
+			, STATE
+			)
+		VALUES
+			('상품임시저장'
+			 ,#{companyNm}
+			 ,#{managerNm}
+			 ,#{productNm}d
+			 ,#{productCnt}
+			 ,#{price}
+			 ,#{state}
+			 )
+	</insert>
+	
+	<!-- 상품 등록건 조회 -->
+	<select id="selectRegProduct" parameterType="String" resultMap="registMap">
+		SELECT REGIST_ID			-- 등록아이디 
+		      , REGIST_NAME			--등록명
+			  , COMPANY_NAME			-- 회사명
+			  , MANAGER_NAME			-- 담당자명
+			  , PRODUCT_NAME          -- 제품명
+              , PRODUCT_CNT                     -- 제품 개수
+              , PRICE                           -- 가격
+              , STATE 					-- 상태
+		FROM REGIST_INFO
+		WHERE REGIST_ID = #{registId}
+	</select>
+	
 	
 </mapper>
