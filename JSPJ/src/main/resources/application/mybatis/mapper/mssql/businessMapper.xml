@@ -6,12 +6,18 @@
 	<resultMap id="registMap" type="com.JSPJ.demo.Vo.businessVo">
 		<result column="REGIST_ID"				property="registId" />			<!-- 프로그램 아이디 					-->
 		<result column="REGIST_NAME"			property="registNm" />			<!-- 프로그램 아이디 					-->
+		<result column="COMPANY_CD"      		property="companyCd" />			<!-- 프로그램 경로	 				-->
 		<result column="COMPANY_NAME"      		property="companyNm" />			<!-- 프로그램 경로	 				-->
+		<result column="MANAGER_ID"        		property="managerId" />				<!-- 프로그램명칭 						-->
 		<result column="MANAGER_NAME"        	property="managerNm" />				<!-- 프로그램명칭 						-->
 		<result column="PRODUCT_NAME"        	property="productNm" />				<!-- 사용유무 						-->
 		<result column="PRODUCT_CNT"        	property="productCnt" />				<!-- 사용유무 						-->
+		<result column="PRODUCT_CATEGORY"       property="productCategory" />				<!-- 사용유무 						-->
+		<result column="PRODUCT_DESC"        	property="productDesc" />				<!-- 사용유무 						-->
 		<result column="PRICE"        			property="price" />				<!-- 사용유무 						-->
 		<result column="STATE"        			property="state" />				<!-- 사용유무 						-->
+		<result column="FILE_NAME"        		property="fileName" />				<!-- 사용유무 						-->
+		<result column="FILE_PATH"        		property="filePath" />				<!-- 사용유무 						-->
 		<result column="CREATED_AT"        		property="createAt" />				<!-- 사용유무 						-->
 	</resultMap>
 	
@@ -30,28 +36,67 @@
 		FROM REGIST_INFO
 	</select>
 	
+	<!-- 등록건수 확인 -->
+	<select id="selectRegistCnt" parameterType="com.JSPJ.demo.Vo.businessVo" resultType="int">
+		SELECT COUNT(1)
+		FROM REGIST_INFO
+		WHERE REGIST_ID = #{registId}
+	</select>
+	
 	<!-- 상품등룩 -->
 	<insert id="insProductRegist" parameterType="com.JSPJ.demo.Vo.businessVo">
 		INSERT INTO REGIST_INFO 
 			(
 			REGIST_NAME
 			, COMPANY_NAME
+			, COMPANY_CD
 			, MANAGER_NAME
+			, MANAGER_ID
 			, PRODUCT_NAME
 			, PRODUCT_CNT
+			, PRODUCT_CATEGORY
+			, PRODUCT_DESC
 			, PRICE
 			, STATE
+			, FILE_NAME
+			, FILE_PATH
 			)
 		VALUES
 			('상품등록'
 			 ,#{companyNm}
+			 ,#{companyCd}
 			 ,#{managerNm}
+			 ,#{managerId}
 			 ,#{productNm}
 			 ,#{productCnt}
+			 ,#{productCategory}
+			 ,#{productDesc}
 			 ,#{price}
 			 ,#{state}
+			 ,#{fileName}
+			 ,#{filePath}
 			 )
 	</insert>
+	
+	<!-- 상품 업데이트 -->
+	<update id="updProductRegist" parameterType="com.JSPJ.demo.Vo.businessVo">
+		UPDATE REGIST_INFO SET  
+			REGIST_NAME = #{registNm}
+			, COMPANY_NAME = #{companyNm}
+			, COMPANY_CD = #{companyCd}
+			, MANAGER_NAME = #{managerNm}
+			, MANAGER_ID = #{managerId}
+			, PRODUCT_NAME = #{productNm}
+			, PRODUCT_CNT = #{productCnt}
+			, PRODUCT_CATEGORY = #{productCategory}
+			, PRODUCT_DESC = #{productDesc}
+			, PRICE = #{price}
+			, STATE = #{state}
+			, FILE_NAME = #{fileName}
+			, FILE_PATH = #{filePath}
+			, UPDATED_AT = GETDATE()
+		WHERE REGIST_ID = #{registId}
+	</update>
 	
 	<!--상품 임시저장-->
 	<insert id="insTempProductRegist" parameterType="com.JSPJ.demo.Vo.businessVo">
@@ -59,33 +104,51 @@
 			(
 			REGIST_NAME
 			, COMPANY_NAME
+			, COMPANY_CD
 			, MANAGER_NAME
+			, MANAGER_ID
 			, PRODUCT_NAME
 			, PRODUCT_CNT
+			, PRODUCT_CATEGORY
+			, PRODUCT_DESC
 			, PRICE
 			, STATE
+			, FILE_NAME
+			, FILE_PATH
 			)
 		VALUES
 			('상품임시저장'
 			 ,#{companyNm}
+			 ,#{companyCd}
 			 ,#{managerNm}
-			 ,#{productNm}d
+			 ,#{managerId}
+			 ,#{productNm}
 			 ,#{productCnt}
+			 ,#{productCategory}
+			 ,#{productDesc}
 			 ,#{price}
 			 ,#{state}
+			 ,#{fileName}
+			 ,#{filePath}
 			 )
 	</insert>
 	
 	<!-- 상품 등록건 조회 -->
 	<select id="selectRegProduct" parameterType="String" resultMap="registMap">
 		SELECT REGIST_ID			-- 등록아이디 
-		      , REGIST_NAME			--등록명
-			  , COMPANY_NAME			-- 회사명
-			  , MANAGER_NAME			-- 담당자명
-			  , PRODUCT_NAME          -- 제품명
-              , PRODUCT_CNT                     -- 제품 개수
-              , PRICE                           -- 가격
-              , STATE 					-- 상태
+		      , REGIST_NAME
+			  , COMPANY_NAME
+			  , COMPANY_CD
+			  , MANAGER_NAME
+			  , MANAGER_ID
+			  , PRODUCT_NAME
+			  , PRODUCT_CNT
+			  , PRODUCT_CATEGORY
+			  , PRODUCT_DESC
+			  , PRICE
+			  , STATE			-- 상태
+			  , FILE_NAME
+			  , FILE_PATH
 		FROM REGIST_INFO
 		WHERE REGIST_ID = #{registId}
 	</select>

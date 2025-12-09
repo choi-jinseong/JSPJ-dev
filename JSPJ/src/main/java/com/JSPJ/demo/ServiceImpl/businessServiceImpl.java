@@ -33,11 +33,26 @@ public class businessServiceImpl implements businessService {
 	public String insProductRegist(businessVo businessVo) {
 		String result = "fail";
 		
-		//상품등록
-		int resultFg = businessMapper.insProductRegist(businessVo);
+		//등록된 건이 있는지 확인 
+		int registCnt = businessMapper.selectRegistCnt(businessVo);
 		
-		if(resultFg == 1) {
-			result = "success";
+		String registNm = "상품등록";
+		businessVo.setRegistNm(registNm);
+		
+		if(registCnt == 0) {
+			//상품등록
+			int resultFg = businessMapper.insProductRegist(businessVo);
+			
+			if(resultFg == 1) {
+				result = "success";
+			}
+		}else {
+			//상품 업데이트
+			int resultFg = businessMapper.updProductRegist(businessVo);
+			
+			if(resultFg == 1) {
+				result = "success";
+			}
 		}
 		
 		return result;
@@ -50,11 +65,26 @@ public class businessServiceImpl implements businessService {
 	public String insTempProductRegist(businessVo businessVo) {
 		String result = "fail";
 		
-		//상품 임시저장
-		int resultFg = businessMapper.insTempProductRegist(businessVo);
+		//등록된 건이 있는지 확인 
+		int registCnt = businessMapper.selectRegistCnt(businessVo);
 		
-		if(resultFg == 1) {
-			result = "success";
+		String registNm = "상품임시저장";
+		businessVo.setRegistNm(registNm);
+		
+		if(registCnt == 0) {
+			//상품 임시저장
+			int resultFg = businessMapper.insTempProductRegist(businessVo);
+			
+			if(resultFg == 1) {
+				result = "success";
+			}
+		}else {
+			//상품 임시저장 업데이트
+			int resultFg = businessMapper.updProductRegist(businessVo);
+			
+			if(resultFg == 1) {
+				result = "success";
+			}
 		}
 		
 		return result;
@@ -65,6 +95,7 @@ public class businessServiceImpl implements businessService {
 	 */
 	@Override
 	public businessVo selectRegProduct (String registId) {
+		
 		businessVo productRegVo = businessMapper.selectRegProduct(registId);
 		
 		return productRegVo;

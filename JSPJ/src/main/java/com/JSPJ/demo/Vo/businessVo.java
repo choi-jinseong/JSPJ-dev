@@ -15,7 +15,11 @@ public class businessVo implements Serializable{
 	
 	private String companyNm;
 	
+	private String companyCd;
+	
 	private String managerNm;
+	
+	private String managerId;
 	
 	private String productNm;
 	
@@ -30,9 +34,45 @@ public class businessVo implements Serializable{
 	private String productDesc;
 	
 	private String createAt;
+	
+	private String fileName;
+	
+	private String filePath;
 
 	
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
+	}
+
+	public String getCompanyCd() {
+		return companyCd;
+	}
+
+	public void setCompanyCd(String companyCd) {
+		this.companyCd = companyCd;
+	}
+
 	public String getProductCategory() {
 		return productCategory;
 	}

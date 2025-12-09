@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.JSPJ.demo.Vo.companyVo;
 import com.JSPJ.demo.Vo.menuVo;
+import com.JSPJ.demo.Vo.userVo;
 
 @Mapper
 public interface commonMapper {
@@ -14,5 +16,19 @@ public interface commonMapper {
 	 * @return
 	 */
 	List<menuVo> menuList(String userAuth);
+	
+	/**
+	 * 업체찾기 
+	 * @param param
+	 * @return
+	 */
+	List<companyVo> selCompanyInfo(String param);
+	
+	/**
+	 * 담당자 찾기
+	 * @param param
+	 * @return
+	 */
+	List<userVo> selManagerInfo(String param);
 	
 }

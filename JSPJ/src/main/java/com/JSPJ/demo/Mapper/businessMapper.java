@@ -23,6 +23,20 @@ public interface businessMapper {
 	int insProductRegist(businessVo businessVo);
 	
 	/**
+	 * 상품 업데이트
+	 * @param businessVo
+	 * @return
+	 */
+	int updProductRegist(businessVo businessVo);
+	
+	/**
+	 * 상품 등록건이 있는지확인 
+	 * @param businessVo
+	 * @return
+	 */
+	int selectRegistCnt(businessVo businessVo);
+	
+	/**
 	 * 상품 임시저장
 	 * @param businessVo
 	 * @return

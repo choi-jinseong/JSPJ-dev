@@ -1,8 +1,11 @@
 package com.JSPJ.demo.controller;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.JSPJ.demo.Service.businessService;
 import com.JSPJ.demo.Service.commonService;
@@ -56,8 +60,6 @@ public class businessController {
 	        model.addAttribute("regProductVo", regProductVo);
 	    }
 	    
-	    //사용자 권한 확인 
-
 	    return "businessRegist";
 	}
 	
@@ -68,8 +70,28 @@ public class businessController {
 	 */
 	@PostMapping("/insProductRegist")
 	@ResponseBody
-	public String insProductRegist(@RequestBody businessVo businessVo) {
+	public String insProductRegist(businessVo businessVo ,  @RequestParam(value = "productImage", required = false) MultipartFile productImage) throws Exception {
+		
 		String result = "fail";
+		
+		// 파일 저장
+	    if (productImage != null && !productImage.isEmpty()) {
+
+	        String uploadDir = "C:/upload/product/";
+
+	        File dir = new File(uploadDir);
+	        if (!dir.exists()) dir.mkdirs();
+
+	        String originalName = Paths.get(productImage.getOriginalFilename()).getFileName().toString();
+	        String savedName = UUID.randomUUID() + "_" + originalName;
+
+	        File saveFile = new File(uploadDir + savedName);
+	        productImage.transferTo(saveFile);
+
+	        // VO 에 파일 정보 set
+	        businessVo.setFileName(savedName);
+	        businessVo.setFilePath("/upload/product/" + savedName);
+	    }
 		
 		result = businessService.insProductRegist(businessVo);
 		

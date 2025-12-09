@@ -64,11 +64,37 @@
 		            transition: 0.2s ease-in-out;
 		        }
         
-				/* 상품등록 버튼 */
+		/* 상품등록 버튼 */
         .regist-btn {
             background: white;
             color: #4a6cf7;
             padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            border: solid;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+        
+        /* 업체 찾기 팝업 버튼 */
+        .selComp-btn {
+            background: white;
+            color: #4a6cf7;
+            padding: 3px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            border: solid;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+        }
+        
+        /* 담당자 찾기 팝업 버튼 */
+        .selManage-btn {
+            background: white;
+            color: #4a6cf7;
+            padding: 3px 16px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
@@ -259,9 +285,47 @@
 
 <script>
 	$(document).ready(function() {
-		
+		 // 이미지 미리보기 및 기존 이미지 교체
+	    $('#productImage').on('change', function (event) {
+	        const file = event.target.files[0];
+
+	        if (!file) return;
+
+	        // 이미지 파일 체크
+	        if (!file.type.startsWith('image/')) {
+	            alert('이미지 파일만 업로드 가능합니다.');
+	            $(this).val('');
+	            return;
+	        }
+
+	        const reader = new FileReader();
+	        reader.onload = function (e) {
+	            // 기존 이미지 제거 후 새 이미지 보여주기
+	            $('#imagePreview').html(`<img src="${e.target.result}" alt="미리보기 이미지" 
+	                                     style="max-width:200px; max-height:200px; border:1px solid #ccc; border-radius:6px;">`);
+	        };
+	        reader.readAsDataURL(file);
+	    });
 	});
 
+	// 업체 담당자 검색 팝업 
+	function openManagerPopup(){
+	    window.open(
+	        '/popup/manager', 
+	        'managerPopup', 
+	        'width=850,height=500,scrollbars=yes'
+	    );
+	}
+
+	// 업체 검색 팝업
+	function openCompanyPopup(){
+	    window.open(
+	        '/popup/company', 
+	        'companyPopup', 
+	        'width=850,height=500,scrollbars=yes'
+	    );
+	}
+	
 	//상품등록
  	function productRegist(){
  	   
@@ -294,31 +358,31 @@
  	   }
  	   
  	   
- 	    var dataInfo = {};
+ 	 	const formData = new FormData();
  		 // input 값 가져오기
- 	    var companyNm = $('#companyName').val();
- 	    var managerNm = $('#managerName').val();
- 	    var productNm = $('#productName').val();
- 	    var price = $('#productPrice').val();
- 	    var productCnt = $('#productCnt').val();
- 	    var productCategory = $('#productCategory').val();
- 	    var productDesc = $('#productDesc').val();
-		var state = 'A';
+ 	    formData.append("registId", $('#registId').val());
+ 	    formData.append("companyNm", $('#companyName').val());
+ 	    formData.append("companyCd", $('#companyCd').val());
+    	formData.append("managerNm", $('#managerName').val());
+    	formData.append("managerId", $('#managerId').val());
+    	formData.append("productNm", $('#productName').val());
+    	formData.append("price", $('#productPrice').val());
+    	formData.append("productCnt", $('#productCnt').val());
+    	formData.append("productCategory", $('#productCategory').val());
+    	formData.append("productDesc", $('#productDesc').val());
+    	formData.append("state", "A");
  	    
- 	    dataInfo.companyNm = companyNm;
- 	    dataInfo.managerNm = managerNm;
- 	    dataInfo.productNm = productNm;
- 	    dataInfo.price = price;
- 	    dataInfo.productCnt = productCnt;
- 	    dataInfo.productCategory =  productCategory;
- 	    dataInfo.productDesc =  productDesc;
-		dataInfo.state = state;
+    	const file = $('#productImage')[0].files[0];
+        if (file) {
+            formData.append("productImage", file);
+        }
  	    
  	    $.ajax({
  	        url: '/insProductRegist',          
  	        type: 'POST',
- 	        data: JSON.stringify(dataInfo),
- 	        contentType: 'application/json',
+ 	        data: formData,
+ 	        processData: false,
+ 	        contentType: false,
  	        success: function(data) {
  	            if(data == "success"){
  	                alert('상품이 정상적으로 등록되었습니다.');
@@ -400,18 +464,26 @@
 	    <h2>상품등록</h2>
 	
 		<!-- 상품등록 영역  일반사용자 화면 -->
-		<div class="registArea" th:if="${auth == 'user'}">
+		<div class="registArea">
 		    <!-- 1번째 줄 : 상품명 / 가격 -->
 		    <div class="form-row">	
-				<input type="hidden" id="state" name="state" th:value="${regProductVo?.state}"> />
-				<input type="hidden" id="registId" name="registId" th:value="${regProductVo?.registId}"> />
+				<input type="hidden" id="state" name="state" th:value="${regProductVo?.state}">
+				<input type="hidden" id="registId" name="registId" th:value="${regProductVo?.registId}"> 
 		        <div class="form-group">
 		            <label for="companyName">회사명</label>
-		            <input type="text" id="companyName" name="companyName" placeholder="회사명 입력" th:value="${regProductVo?.companyNm}">
+		            <div style="display:flex; gap:10px; width:82%;">
+				        <input type="text" id="companyName" name="companyName" placeholder="회사명 입력" readonly th:value="${regProductVo?.companyNm}">
+				        <input type="hidden" id="companyCd" name="companyCd" th:value="${regProductVo?.companyCd}">
+				        <button type="button" class="selComp-btn" style="height: 35px;" onclick="openCompanyPopup()">찾기</button>
+				    </div>
 		        </div>
 		        <div class="form-group">
 		            <label for="managerName">담당자명</label>
-		            <input type="text" id="managerName" name="managerName" placeholder="담당자 입력" th:value="${regProductVo?.managerNm}">
+		            <div style="display:flex; gap:10px; width:82%;">
+				        <input type="text" id="managerName" name="managerName" placeholder="담당자 입력" readonly th:value="${regProductVo?.managerNm}">
+				        <input type="hidden" id="managerId" name="managerId" th:value="${regProductVo?.managerId}">
+				        <button type="button" class="selManage-btn" style="height: 35px;" onclick="openManagerPopup()">찾기</button>
+				    </div>
 		        </div>
 		    </div>
 		    
@@ -435,101 +507,44 @@
 		        </div>
 		        <div class="form-group">
 		            <label for="productCategory">카테고리</label>
-		            <select id="productCategory" name="productCategory" th:value="${regProductVo?.productCategory}">
-		                <option value="">카테고리 선택</option>
-		                <option value="electronics">전자제품</option>
-		                <option value="clothes">의류</option>
-		                <option value="food">식품</option>
-		            </select>
+		           <select id="productCategory" name="productCategory">
+					    <option value="">카테고리 선택</option>
+					    <option value="electronics" th:selected="${regProductVo != null and regProductVo.productCategory == 'electronics'}">전자제품</option>
+					    <option value="clothes" th:selected="${regProductVo != null and regProductVo.productCategory == 'clothes'}">의류</option>
+					    <option value="food" th:selected="${regProductVo != null and regProductVo.productCategory == 'food'}">식품</option>
+					</select>
 		        </div>
 		    </div>
 		
 		    <!-- 4번째 줄 : 상품 설명 -->
 			<div class="form-row textarea-row">
 			    <label for="productDesc" style="font-weight:bold; margin-bottom:5px;">상품 설명</label>
-			    <textarea id="productDesc" name="productDesc" placeholder="상품 설명 입력"  th:text="${regProductVo?.productDesc}"></textarea>
+			    <textarea id="productDesc" name="productDesc"  placeholder="상품 설명 입력"
+          			th:text="${regProductVo != null ? regProductVo.productDesc : ''}"></textarea>
 			</div>
 		
 		    <!-- 5번째 줄 : 이미지 업로드 -->
 		    <div class="form-row" style="flex-direction: column; align-items: flex-start; margin-top:20px;">
-		        <label for="productImage" style="font-weight:bold; margin-bottom:5px;">상품 이미지</label>
-		        <input type="file" id="productImage" accept="image/*">
-		        <div id="imagePreview" style="margin-top:10px;">
-		            <!-- 선택한 이미지 미리보기 -->
-		        </div>
-		    </div>
+			    <label for="productImage" style="font-weight:bold; margin-bottom:5px;">상품 이미지</label>
+			    <input type="file" id="productImage" name="productImage" accept="image/*">
+			    
+			    <div id="imagePreview" style="margin-top:10px;">
+			        <!-- 기존 DB 이미지가 있으면 보여주기 -->
+			        <img th:if="${regProductVo != null and regProductVo.filePath != null}" 
+			             th:src="@{${regProductVo.filePath}}" 
+			             alt="등록된 상품 이미지"
+			             style="max-width:200px; max-height:200px; border:1px solid #ccc; border-radius:6px;">
+			    </div>
+			</div>
 		
 		
 		    <!-- 등록 버튼 -->
-		    <div style="margin-top: 30px; text-align:right;">
+		    <div style="margin-top: 30px; text-align:right;" th:if="${auth == 'USER'}">
 		    	<button class="tempRegist-btn" onclick="productTempRegist()">임시저장</button>
 		        <button class="regist-btn" onclick="productRegist()">상품등록</button>
 		    </div>
-		</div>
-		
-		<!--관리자 화면-->
-		<div class="registChkArea" th:if="${auth == 'admin'}">
-			<!-- 1번째 줄 : 상품명 / 가격 -->
-		    <div class="form-row">	
-				<input type="hidden" id="state" name="state" th:value="${regProductVo?.state}"> />
-				<input type="hidden" id="registId" name="registId" th:value="${regProductVo?.registId}"> />
-		        <div class="form-group">
-		            <label for="companyName">회사명</label>
-		            <input type="text" id="companyName" name="companyName" placeholder="회사명 입력" th:value="${regProductVo?.companyNm}">
-		        </div>
-		        <div class="form-group">
-		            <label for="managerName">담당자명</label>
-		            <input type="text" id="managerName" name="managerName" placeholder="담당자 입력" th:value="${regProductVo?.managerNm}">
-		        </div>
-		    </div>
-		    
-		    <!-- 2번째 줄 : 상품명 / 가격 -->
-		    <div class="form-row">
-		        <div class="form-group">
-		            <label for="productName">상품명</label>
-		            <input type="text" id="productName" name="productName" placeholder="상품명 입력" th:value="${regProductVo?.productNm}">
-		        </div>
-		        <div class="form-group">
-		            <label for="productPrice">가격</label>
-		            <input type="number" id="productPrice" name="productPrice" placeholder="가격 입력" th:value="${regProductVo?.price}">
-		        </div>
-		    </div>
-		
-		    <!-- 3번째 줄 : 수량 / 카테고리 -->
-		    <div class="form-row">
-		        <div class="form-group">
-		            <label for="productCnt">수량</label>
-		            <input type="number" id="productCnt" name="productCnt" placeholder="수량 입력" th:value="${regProductVo?.productCnt}"> 
-		        </div>
-		        <div class="form-group">
-		            <label for="productCategory">카테고리</label>
-		            <select id="productCategory" name="productCategory" th:value="${regProductVo?.productCategory}">
-		                <option value="">카테고리 선택</option>
-		                <option value="electronics">전자제품</option>
-		                <option value="clothes">의류</option>
-		                <option value="food">식품</option>
-		            </select>
-		        </div>
-		    </div>
-		
-		    <!-- 4번째 줄 : 상품 설명 -->
-			<div class="form-row textarea-row">
-			    <label for="productDesc" style="font-weight:bold; margin-bottom:5px;">상품 설명</label>
-			    <textarea id="productDesc" name="productDesc" placeholder="상품 설명 입력"  th:text="${regProductVo?.productDesc}"></textarea>
-			</div>
-		
-		    <!-- 5번째 줄 : 이미지 업로드 -->
-		    <div class="form-row" style="flex-direction: column; align-items: flex-start; margin-top:20px;">
-		        <label for="productImage" style="font-weight:bold; margin-bottom:5px;">상품 이미지</label>
-		        <input type="file" id="productImage" accept="image/*">
-		        <div id="imagePreview" style="margin-top:10px;">
-		            <!-- 선택한 이미지 미리보기 -->
-		        </div>
-		    </div>
-		
-		
 		    <!-- 반려 승인 버튼 -->
-		    <div style="margin-top: 30px; text-align:right;">
+		    <div style="margin-top: 30px; text-align:right;" th:if="${auth == 'ADMIN'}">
 		    	<button class="reject-btn" onclick="productReject()">반려</button>
 		        <button class="approve-btn" onclick="productApprove()">승인</button>
 		    </div>

@@ -10,6 +10,20 @@
 		<result column="USE_YN"        			property="useYn" />				<!-- 사용유무 						-->
 	</resultMap>
 	
+	<resultMap id="compMap" type="com.JSPJ.demo.Vo.companyVo">
+		<result column="COMPANY_CD"					property="compCd" />
+		<result column="COMPANY_NAME"				property="compNm" />
+		<result column="COMPANY_ADDRESS"			property="compAddress" />
+		<result column="MANAGER_NAME"				property="managerNm" />
+		<result column="MANAGER_TEL"				property="managerTel" />
+		<result column="COMPANY_TEL"				property="companyTel" />
+	</resultMap>
+	
+	<resultMap id="userMap" type="com.JSPJ.demo.Vo.userVo">
+		<result column="USER_ID"				property="id" />			<!-- 프로그램 아이디 					-->
+		<result column="USERNAME"      		    property="name" />			<!-- 프로그램 경로	 				-->
+		<result column="TELNO"        			property="telNo" />				<!-- 프로그램명칭 						-->
+	</resultMap>
 
 	<!-- 공통 메뉴 조회 -->
 	<select id="menuList" parameterType="String" resultMap="menuMap">
@@ -19,6 +33,36 @@
 			  , USE_YN
 		FROM MENU_INFO
 		WHERE USE_YN = 'Y'
+	</select>
+	
+	<!-- 업체찾기 -->
+	<select id="selCompanyInfo" parameterType="String" resultMap="compMap">
+		SELECT  COMPANY_CD ,     -- 자동 증가 ID
+			    COMPANY_NAME ,
+			    COMPANY_ADDRESS ,
+			    MANAGER_NAME ,
+			    MANAGER_TEL ,         
+			    COMPANY_TEL 
+		FROM COMPANY_INFO
+		<where>
+			<if test='compNm != null and compNm != ""'>
+				 COMPANY_NAME  LIKE CONCAT('%',#{compNm},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 담당자 찾기 -->
+	<select id="selManagerInfo" parameterType="String" resultMap="userMap">
+		SELECT  USER_ID ,     -- 자동 증가 ID
+			    USERNAME ,
+			    TELNO 
+		FROM USER_INFO
+		<where>
+			 USER_AUTH = 'SU'
+			<if test='name != null and name != ""'>
+				AND USERNAME  LIKE CONCAT('%',#{name},'%')
+			</if>
+		</where>
 	</select>
 	
 </mapper>
