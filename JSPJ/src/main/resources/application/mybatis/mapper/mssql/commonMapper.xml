@@ -23,6 +23,7 @@
 		<result column="USER_ID"				property="id" />			<!-- 프로그램 아이디 					-->
 		<result column="USERNAME"      		    property="name" />			<!-- 프로그램 경로	 				-->
 		<result column="TELNO"        			property="telNo" />				<!-- 프로그램명칭 						-->
+		<result column="EMAIL"        			property="email" />				<!-- 프로그램명칭 						-->
 	</resultMap>
 
 	<!-- 공통 메뉴 조회 -->
@@ -55,10 +56,11 @@
 	<select id="selManagerInfo" parameterType="String" resultMap="userMap">
 		SELECT  USER_ID ,     -- 자동 증가 ID
 			    USERNAME ,
+			    EMAIL ,
 			    TELNO 
 		FROM USER_INFO
 		<where>
-			 USER_AUTH = 'SU'
+			 USER_AUTH = 'ADMIN'
 			<if test='name != null and name != ""'>
 				AND USERNAME  LIKE CONCAT('%',#{name},'%')
 			</if>

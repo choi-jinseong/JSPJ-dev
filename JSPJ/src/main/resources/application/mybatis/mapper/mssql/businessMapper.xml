@@ -10,6 +10,8 @@
 		<result column="COMPANY_NAME"      		property="companyNm" />			<!-- 프로그램 경로	 				-->
 		<result column="MANAGER_ID"        		property="managerId" />				<!-- 프로그램명칭 						-->
 		<result column="MANAGER_NAME"        	property="managerNm" />				<!-- 프로그램명칭 						-->
+		<result column="MANAGER_EMAIL"        	property="managerEmail" />				<!-- 프로그램명칭 						-->
+		<result column="MANAGER_TELNO"        	property="managerTelNo" />				<!-- 프로그램명칭 						-->
 		<result column="PRODUCT_NAME"        	property="productNm" />				<!-- 사용유무 						-->
 		<result column="PRODUCT_CNT"        	property="productCnt" />				<!-- 사용유무 						-->
 		<result column="PRODUCT_CATEGORY"       property="productCategory" />				<!-- 사용유무 						-->
@@ -52,6 +54,8 @@
 			, COMPANY_CD
 			, MANAGER_NAME
 			, MANAGER_ID
+			, MANAGER_EMAIL
+			, MANAGER_TELNO
 			, PRODUCT_NAME
 			, PRODUCT_CNT
 			, PRODUCT_CATEGORY
@@ -67,6 +71,8 @@
 			 ,#{companyCd}
 			 ,#{managerNm}
 			 ,#{managerId}
+			 ,#{managerEmail}
+			 ,#{managerTelNo}
 			 ,#{productNm}
 			 ,#{productCnt}
 			 ,#{productCategory}
@@ -86,6 +92,8 @@
 			, COMPANY_CD = #{companyCd}
 			, MANAGER_NAME = #{managerNm}
 			, MANAGER_ID = #{managerId}
+			, MANAGER_EMAIL = #{managerEmail}
+			, MANAGER_TELNO = #{managerTelNo}
 			, PRODUCT_NAME = #{productNm}
 			, PRODUCT_CNT = #{productCnt}
 			, PRODUCT_CATEGORY = #{productCategory}
@@ -107,6 +115,8 @@
 			, COMPANY_CD
 			, MANAGER_NAME
 			, MANAGER_ID
+			, MANAGER_EMAIL
+			, MANAGER_TELNO
 			, PRODUCT_NAME
 			, PRODUCT_CNT
 			, PRODUCT_CATEGORY
@@ -122,6 +132,8 @@
 			 ,#{companyCd}
 			 ,#{managerNm}
 			 ,#{managerId}
+			 ,#{managerEmail}
+			 ,#{managerTelNo}
 			 ,#{productNm}
 			 ,#{productCnt}
 			 ,#{productCategory}
@@ -132,6 +144,14 @@
 			 ,#{filePath}
 			 )
 	</insert>
+
+	<!-- 관리자 상품 승인 및 반려 -->	
+	<update id="updProductState" parameterType="com.JSPJ.demo.Vo.businessVo">
+		UPDATE REGIST_INFO SET  
+			 STATE = #{state}
+			, UPDATED_AT = GETDATE()
+		WHERE REGIST_ID = #{registId}
+	</update>
 	
 	<!-- 상품 등록건 조회 -->
 	<select id="selectRegProduct" parameterType="String" resultMap="registMap">
@@ -141,6 +161,8 @@
 			  , COMPANY_CD
 			  , MANAGER_NAME
 			  , MANAGER_ID
+			  , MANAGER_EMAIL
+			  , MANAGER_TELNO
 			  , PRODUCT_NAME
 			  , PRODUCT_CNT
 			  , PRODUCT_CATEGORY

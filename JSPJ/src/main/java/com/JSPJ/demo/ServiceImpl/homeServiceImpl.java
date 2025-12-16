@@ -1,11 +1,13 @@
 package com.JSPJ.demo.ServiceImpl;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.JSPJ.demo.SHA256;
 import com.JSPJ.demo.Mapper.homeMapper;
 import com.JSPJ.demo.Service.homeService;
 import com.JSPJ.demo.Vo.userVo;
@@ -85,6 +87,28 @@ public class homeServiceImpl implements homeService {
 	   //일반회원 가입 이므로 권한 일반회원으로 줌 (관리자는 사용자관리에서 등록)
 	   //일반회원  USER 관리자 SA  담당자 SU
 	   userVo.setUserAuth("USER");
+	   
+	   //회원가입 비밀번호 암호화
+	   SHA256 sha256 = new SHA256();
+	   
+	   //기존 비밀번호
+	   String pw = userVo.getPw();
+	   
+	   String cryptogram = "";
+	   if(pw != null && pw != "") {
+		   //암호화 비번
+		   try {
+			  cryptogram = sha256.encrypt(pw);
+		   } catch (NoSuchAlgorithmException e) {
+			   // TODO Auto-generated catch block
+			   e.printStackTrace();
+			   return result;
+		   }
+	   }
+	   
+	   if(cryptogram == "") {
+		   return result;
+	   }
 	   
 	   //화면에서 입력한 정보 등록
 	   int regist = homeMapper.userRegist(userVo);

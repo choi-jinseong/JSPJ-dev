@@ -113,6 +113,21 @@ public class businessController {
 		return result;
 	}
 	
+	/**
+	 * 관리자 상품 승인 및 반려
+	 * @param businessVo
+	 * @return
+	 */
+	@PostMapping("/updProductState")
+	@ResponseBody
+	public String updProductState(@RequestBody businessVo businessVo) {
+		String result = "fail";
+		
+		result = businessService.updProductState(businessVo);
+		
+		return result;
+	}
+	
 	
 	/**
 	 * 등록현황 조회 리스트 화면 

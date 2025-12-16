@@ -21,6 +21,10 @@ public class businessVo implements Serializable{
 	
 	private String managerId;
 	
+	private String managerTelNo;
+	
+	private String managerEmail;
+	
 	private String productNm;
 	
 	private String productCnt;
@@ -41,6 +45,22 @@ public class businessVo implements Serializable{
 
 	
 	
+	public String getManagerTelNo() {
+		return managerTelNo;
+	}
+
+	public void setManagerTelNo(String managerTelNo) {
+		this.managerTelNo = managerTelNo;
+	}
+
+	public String getManagerEmail() {
+		return managerEmail;
+	}
+
+	public void setManagerEmail(String managerEmail) {
+		this.managerEmail = managerEmail;
+	}
+
 	public String getFileName() {
 		return fileName;
 	}

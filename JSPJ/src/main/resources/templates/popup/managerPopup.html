@@ -152,7 +152,8 @@ $(document).ready(function() {
         columns: [
             { header: '담당자아이디', name: 'id', width: 250 },
             { header: '담당자명', name: 'name', width: 250 },
-            { header: '담당자연락처', name: 'telNo', width: 250 }
+            { header: '담당자연락처', name: 'telNo', width: 250 },
+            { header: '담당자이메일', name: 'email', width: 250 }
         ],
         data: fullData,        // 초기 데이터
         bodyHeight: gridContainer.clientHeight  // 부모 컨테이너 높이에 맞춤
@@ -171,11 +172,15 @@ $(document).ready(function() {
 			
 			const name = rowData.name;
 		    const id = rowData.id;
+		    const telNo = rowData.telNo;
+		    const email = rowData.email;
 
 	        // 부모창에 값 세팅
 	        if (window.opener && !window.opener.closed) {
 	            window.opener.document.getElementById('managerName').value = name;
 	            window.opener.document.getElementById('managerId').value   = id;
+	            window.opener.document.getElementById('managerTelNo').value   = telNo;
+	            window.opener.document.getElementById('managerEmail').value   = email;
 	        }
 
 	        // 팝업 닫기

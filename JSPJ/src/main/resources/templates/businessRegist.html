@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>상품등록</title>
     <style>
         body {
             margin: 0;
@@ -365,6 +365,7 @@
  	    formData.append("companyCd", $('#companyCd').val());
     	formData.append("managerNm", $('#managerName').val());
     	formData.append("managerId", $('#managerId').val());
+    	formData.append("managerEmail", $('#managerEmail').val());
     	formData.append("productNm", $('#productName').val());
     	formData.append("price", $('#productPrice').val());
     	formData.append("productCnt", $('#productCnt').val());
@@ -408,6 +409,7 @@
 		
 		var dataInfo = {};
 		 // input 값 가져오기
+		var registId = $('#registId').val();
 	    var companyNm = $('#companyName').val();
 	    var managerNm = $('#managerName').val();
 	    var productNm = $('#productName').val();
@@ -417,6 +419,7 @@
 	    var productDesc = $('#productDesc').val();
 		var state = 'Z';
 	    
+		dataInfo.registId = registId;
 	    dataInfo.companyNm = companyNm;
 	    dataInfo.managerNm = managerNm;
 	    dataInfo.productNm = productNm;
@@ -444,6 +447,80 @@
 	        }
 	    });
 		 
+	}
+	
+	//상품등록 관리자 승인
+	function productApprove(){
+		// A 등록완료 Z 임시저장 O 승인 X 반려
+		if($('#state').val() != "A"){
+			alert("등록완료 건만 승인 및 반려가 가능합니다.");
+			return;
+		}
+		
+		var dataInfo = {};
+		
+		var state = 'O';
+		var registId = $('#registId').val();
+		var managerEmail = $('#managerEmail').val();
+		
+		dataInfo.state = state;
+		dataInfo.registId = registId;
+		dataInfo.managerEmail = managerEmail;
+		
+		$.ajax({
+	        url: '/updProductState',          
+	        type: 'POST',
+	        data: JSON.stringify(dataInfo),
+	        contentType: 'application/json',
+	        success: function(data) {
+	            if(data == "success"){
+	                alert('상품이 정상적으로 승인 되었습니다.');
+	                location.href="/"; 
+	            } else {
+	                alert('상품 승인 실패 ');
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('상품 승인 중 오류:', error);
+	        }
+	    });
+		
+	}
+	
+	//상품등록 관리자 반려
+	function productReject(){
+		// A 등록완료 Z 임시저장 O 승인 X 반려
+		if($('#state').val() != "A"){
+			alert("등록완료 건만 승인 및 반려가 가능합니다.");
+			return;
+		}
+		
+		var dataInfo = {};
+		
+		var state = 'X';
+		var registId = $('#registId').val();
+		
+		dataInfo.state = state;
+		dataInfo.registId = registId;
+		
+		$.ajax({
+	        url: '/updProductState',          
+	        type: 'POST',
+	        data: JSON.stringify(dataInfo),
+	        contentType: 'application/json',
+	        success: function(data) {
+	            if(data == "success"){
+	                alert('상품이 정상적으로 반려 되었습니다.');
+	                location.href="/"; 
+	            } else {
+	                alert('상품 반려 실패 ');
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('상품 반려 중 오류:', error);
+	        }
+	    });
+		
 	}
 </script>
 
@@ -482,6 +559,8 @@
 		            <div style="display:flex; gap:10px; width:82%;">
 				        <input type="text" id="managerName" name="managerName" placeholder="담당자 입력" readonly th:value="${regProductVo?.managerNm}">
 				        <input type="hidden" id="managerId" name="managerId" th:value="${regProductVo?.managerId}">
+				        <input type="hidden" id="managerTelNo" name="managerTelNo" th:value="${regProductVo?.managerTelNo}">
+				        <input type="hidden" id="managerEmail" name="managerEmail" th:value="${regProductVo?.managerEmail}">
 				        <button type="button" class="selManage-btn" style="height: 35px;" onclick="openManagerPopup()">찾기</button>
 				    </div>
 		        </div>
@@ -544,7 +623,7 @@
 		        <button class="regist-btn" onclick="productRegist()">상품등록</button>
 		    </div>
 		    <!-- 반려 승인 버튼 -->
-		    <div style="margin-top: 30px; text-align:right;" th:if="${auth == 'ADMIN'}">
+		    <div style="margin-top: 30px; text-align:right;" th:if="${auth == 'ADMIN' or auth == 'SUPERADMIN'}">
 		    	<button class="reject-btn" onclick="productReject()">반려</button>
 		        <button class="approve-btn" onclick="productApprove()">승인</button>
 		    </div>

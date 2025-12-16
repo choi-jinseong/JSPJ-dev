@@ -44,6 +44,13 @@ public interface businessMapper {
 	int insTempProductRegist(businessVo businessVo);
 	
 	/**
+	 * 관리자 상품 승인 및 반려
+	 * @param businessVo
+	 * @return
+	 */
+	int updProductState(businessVo businessVo);
+	
+	/**
 	 * 상품등록 건 조회 
 	 * @param param
 	 * @return

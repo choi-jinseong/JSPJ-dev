@@ -27,6 +27,13 @@ public interface businessService {
 	public String insTempProductRegist(businessVo businessVo);
 	
 	/**
+	 * 관리자 상품 승인 및 반려
+	 * @param businessVo
+	 * @return
+	 */
+	public String updProductState(businessVo businessVo);
+	
+	/**
 	 * 해당 상품등록건 조회
 	 * @param registId
 	 * @return
