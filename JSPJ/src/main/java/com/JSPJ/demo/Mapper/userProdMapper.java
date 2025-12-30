@@ -14,4 +14,11 @@ public interface userProdMapper {
 	 * @return
 	 */
 	List<businessVo> selectProductList();
+	
+	/**
+	 * 상품 상세정보
+	 * @param id
+	 * @return
+	 */
+	businessVo selectProdDetail(String id);
 }

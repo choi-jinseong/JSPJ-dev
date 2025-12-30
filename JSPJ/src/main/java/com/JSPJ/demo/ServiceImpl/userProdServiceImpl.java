@@ -24,4 +24,16 @@ public class userProdServiceImpl implements userProdService {
 		
 		return productList;
 	}
+	
+	
+	/**
+	 * 상품 상세정보
+	 */
+	@Override
+	public businessVo selectProdDetail(String id){
+		businessVo productInfo = userProdMapper.selectProdDetail(id);
+		
+		return productInfo;
+	}
+	
 }
