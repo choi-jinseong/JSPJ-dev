@@ -192,17 +192,17 @@
 	    }
 	   
 	   /* 비밀번호확인  */
-	   if($("#userPw").val() != $("#userRePw").val()){
+	   if($("#regiUserPw").val() != $("#userRePw").val()){
 		   alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
 		   return;
 	   }
 	   
-	   if( $('#userId').val() == "" || $('#userId').val() == null){
+	   if( $('#regiUserId').val() == "" || $('#regiUserId').val() == null){
 		   alert("아이디를 입력해주세요");
 		   return;
 	   }
 	   
-	   if( $('#userPw').val() == "" || $('#userPw').val() == null){
+	   if( $('#regiUserPw').val() == "" || $('#regiUserPw').val() == null){
 		   alert("비밀번호를 입력해주세요");
 		   return;
 	   }
@@ -214,8 +214,8 @@
 	   
 	    var dataInfo = {};
 		 // input 값 가져오기
-	    var userId = $('#userId').val();
-	    var userPw = $('#userPw').val();
+	    var userId = $('#regiUserId').val();
+	    var userPw = $('#regiUserPw').val();
 	    var userNm = $('#userNm').val();
 	    var userEmail = $('#userEmail').val();
 	    var userBirth = $('#userBirth').val();
@@ -251,7 +251,7 @@
 	function idChk(){
 		 // input 값 가져오기
 		
-	    var userId = $('#userId').val();
+	    var userId = $('#regiUserId').val();
 	    
 	    $.ajax({
 	        url: '/userIdChk',          
@@ -261,7 +261,7 @@
 	        success: function(data) {
 	            if(data == "success"){
 	            	// 성공 시
-	                $('#userId').prop('disabled', true);
+	                $('#regiUserId').prop('readonly', true); // 🔥 변경
 	                $('#idChkBtn').prop('disabled', true);
 	                // 🔥 히든값: 중복검사 성공
 	                $('#idChkYn').val('1');
@@ -304,9 +304,8 @@
 		    <div class="form-row">
 		        <div class="form-group" style="flex-direction: column; align-items: flex-start; width: 45%;">
 				    <div style="display: flex; width: 100%; align-items: center;">
-				        <label for="userId" style="width: 100px; margin-right: 10px;">ID</label>
-				        <input type="text" id="userId" name="userId" placeholder="아이디 입력" style="flex: 1;">
-				        <button class="idChk-btn" onclick="idChk()">중복검사</button>
+				        <input type="text" id="regiUserId" name="regiUserId" placeholder="아이디 입력" style="flex: 1;">
+				        <button class="idChk-btn" id="idChkBtn" onclick="idChk()">중복검사</button>
 				    </div>
 				
 				    <!-- 메시지가 바로 아래 표시 -->
@@ -314,10 +313,9 @@
 				           style="color:green; margin-left:110px; margin-top:4px; display:none; font-size:13px;">
 				    </small>
 				
-				    <input type="hidden" id="idChkYn" name="idChkYn" value="0">
+				    <input type="hidden" id="idChkYn" name="idChkY n" value="0">
 				</div>
 		        <div class="form-group">
-		            <label for="userNm">이름</label>
 		            <input type="text" id="userNm" name="userNm" placeholder="이름 입력">
 		        </div>
 		    </div>
@@ -325,11 +323,9 @@
 		    <!-- 2번째 줄 : PW / PW 확인 -->
 		    <div class="form-row">
 		        <div class="form-group">
-		            <label for="userPw">PW</label>
-		            <input type="password" id="userPw" name="userPw" placeholder="비밀번호 입력">
+		            <input type="password" id="regiUserPw" name="regiUserPw" placeholder="비밀번호 입력">
 		        </div>
 		        <div class="form-group">
-		            <label for="userRePw">PW 확인</label>
 		            <input type="password" id="userRePw" name="userRePw" placeholder="비밀번호 재입력">
 		        </div>
 		    </div>
@@ -337,11 +333,9 @@
 		    <!-- 3번째 줄 : 이메일 / 생년월일 -->
 		    <div class="form-row">
 		        <div class="form-group">
-		            <label for="userEmail">이메일</label>
 		            <input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력">
 		        </div>
 		        <div class="form-group">
-		            <label for="userBirth">생년월일</label>
 		            <input type="text" id="userBirth" name="userBirth" placeholder="YYYYMMDD">
 		        </div>
 		    </div>
@@ -349,7 +343,6 @@
 		    <!-- 4번째 줄 : 통신사 / 휴대폰 번호 -->
 		    <div class="form-row">
 		        <div class="form-group">
-		            <label for="userTelTong">통신사</label>
 		            <select id="userTelTong" name="userTelTong">
 		                <option value="">통신사 선택</option>
 		                <option value="SKT">SKT</option>
@@ -361,7 +354,6 @@
 		            </select>
 		        </div>
 		        <div class="form-group">
-		            <label for="userTelNo">핸드폰 번호</label>
 		            <input type="text" id="userTelNo" name="userTelNo" placeholder="01012345678">
 		        </div>
 		    </div>

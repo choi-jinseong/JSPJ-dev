@@ -59,17 +59,17 @@
 			    }
 			   
 			   /* 비밀번호확인  */
-			   if($("#userPw").val() != $("#userRePw").val()){
+			   if($("#regiUserPw").val() != $("#userRePw").val()){
 				   alert("비밀번호와 확인 비밀번호가 일치하지 않습니다.");
 				   return;
 			   }
 			   
-			   if( $('#userId').val() == "" || $('#userId').val() == null){
+			   if( $('#regiUserId').val() == "" || $('#regiUserId').val() == null){
 				   alert("아이디를 입력해주세요");
 				   return;
 			   }
 			   
-			   if( $('#userPw').val() == "" || $('#userPw').val() == null){
+			   if( $('#regiUserPw').val() == "" || $('#regiUserPw').val() == null){
 				   alert("비밀번호를 입력해주세요");
 				   return;
 			   }
@@ -81,8 +81,8 @@
 			   
 			    var dataInfo = {};
 				 // input 값 가져오기
-			    var userId = $('#userId').val();
-			    var userPw = $('#userPw').val();
+			    var userId = $('#regiUserId').val();
+			    var userPw = $('#regiUserPw').val();
 			    var userNm = $('#userNm').val();
 			    var userEmail = $('#userEmail').val();
 			    var userBirth = $('#userBirth').val();
@@ -118,7 +118,7 @@
 			function idChk(){
 				 // input 값 가져오기
 				
-			    var userId = $('#userId').val();
+			    var userId = $('#regiUserId').val();
 			    
 			    $.ajax({
 			        url: '/userIdChk',          
@@ -128,7 +128,7 @@
 			        success: function(data) {
 			            if(data == "success"){
 			            	// 성공 시
-			                $('#userId').prop('disabled', true);
+			                $('#regiUserId').prop('disabled', true);
 			                $('#idChkBtn').prop('disabled', true);
 			                // 🔥 히든값: 중복검사 성공
 			                $('#idChkYn').val('1');
@@ -263,7 +263,7 @@
 							
 							    <!-- ID + 중복검사 버튼 -->
 							    <div style="margin-bottom: 20px; display: flex; justify-content: center; align-items: center; gap: 10px;">
-							        <input type="text" id="userId" name="userId" placeholder="아이디 입력"
+							        <input type="text" id="regiUserId" name="regiUserId" placeholder="아이디 입력"
 							            style="width: 220px; padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
 							        <button onclick="idChk()"
 							            style="border: none; border-radius: 6px; cursor: pointer;">
@@ -275,7 +275,7 @@
 							
 							    <!-- PW -->
 							    <div style="margin-bottom: 20px;">
-							        <input type="password" id="userPw" name="userPw" placeholder="비밀번호 입력"
+							        <input type="password" id="regiUserPw" name="regiUserPw" placeholder="비밀번호 입력"
 							            style="width: 333px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; display: block; margin: 0 auto;">
 							    </div>
 							
