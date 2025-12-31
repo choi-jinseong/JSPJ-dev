@@ -36,4 +36,20 @@ public class userProdServiceImpl implements userProdService {
 		return productInfo;
 	}
 	
+	/**
+	 * 상품결제하기
+	 */
+	@Override 
+	public String insProductBuyList(businessVo businessVo) {
+		String result = "fail";
+		
+		//구매 예약 테이블 인서트
+		
+		//상품 마스터 테이블에서 총갯수 - 구매개수
+		
+		//상품이 정상적으로 주문 되었다고 로그인 계정에 안내 메일 또는 알림톡 전송
+		
+		return result;
+	}
+	
 }

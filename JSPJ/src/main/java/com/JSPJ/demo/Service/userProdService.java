@@ -19,4 +19,10 @@ public interface userProdService {
 	 */
 	public businessVo selectProdDetail(String id);
 	
+	/**
+	 * 상품 결제하기
+	 * @param businessVo
+	 * @return
+	 */
+	public String insProductBuyList(businessVo businessVo);
 }

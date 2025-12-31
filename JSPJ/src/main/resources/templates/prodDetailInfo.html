@@ -362,35 +362,19 @@
 	
 	//상품 즉시 구매
  	function prodBuy(){
- 	   
- 	   if( $('#productCnt').val() == "" || $('productCnt').val() == null){
+		
+ 	   if( $('#productCnt').val() == "" || $('#productCnt').val() == null){
  		   alert("상품의 수량을 선택해주세요");
  		   return;
  	   }
  	   
- 	   
- 	    var dataInfo = {};
- 		 // input 값 가져오기
- 		dataInfo.productCnt = $('#productCnt').val();
- 		dataInfo.registId = $('#registId').val();
- 	    
- 		$.ajax({
-	        url: '/updProdRegCnt',          
-	        type: 'POST',
-	        data: JSON.stringify(dataInfo),
-	        contentType: 'application/json',
-	        success: function(data) {
-	            if(data == "success"){
-	                alert('상품이 정상적으로 임시저장 되었습니다.');
-	                location.href="/"; 
-	            } else {
-	                alert('상품 임시저장 실패 ');
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            console.error('상품 임시저장 중 오류:', error);
-	        }
-	    });
+
+	   var registId = $('#registId').val();
+	   var productCnt = $('#productCnt').val();
+		
+		// 상품 구매 화면
+		window.location.href =
+		        "/updProdRegCnt?registId=" + registId + "&productCnt=" + productCnt; 
 	 
  	}
 	

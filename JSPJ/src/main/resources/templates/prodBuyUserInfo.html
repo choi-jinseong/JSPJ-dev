@@ -1,10 +1,258 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>주문 / 결제</title>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <style>
+        body {
+            background: #f5f6f7;
+            font-family: -apple-system, BlinkMacSystemFont, "Noto Sans KR", sans-serif;
+        }
+
+        .order-container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .order-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .order-block {
+            border-top: 1px solid #eee;
+            padding: 25px 0;
+        }
+
+        .order-block h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .address-box input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .product-box {
+            display: flex;
+            gap: 20px;
+        }
+
+        .product-box img {
+            width: 120px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .product-info .name {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .product-info .price {
+            font-size: 18px;
+            color: #e60023;
+            font-weight: bold;
+        }
+
+        .pay-methods {
+            display: flex;
+            gap: 20px;
+        }
+
+        .total-section {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total-row.final {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .pay-btn {
+            width: 100%;
+            margin-top: 30px;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            background: #03c75a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .pay-btn:hover {
+            background: #02b351;
+        }
+		.address-box button {
+		    margin-top: 8px;
+		    padding: 10px;
+		    border-radius: 8px;
+		    border: none;
+		    background: #4a6cf7;
+		    color: white;
+		    font-weight: bold;
+		    cursor: pointer;
+		}
+
+		.address-box button:hover {
+		    background: #364fc7;
+		}
+    </style>
 </head>
+<script>
+	//주소검색
+	function execDaumPostcode() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	
+	            let addr = ''; // 주소 변수
+	
+	            if (data.userSelectedType === 'R') {
+	                addr = data.roadAddress; // 도로명
+	            } else {
+	                addr = data.jibunAddress; // 지번
+	            }
+	
+	            document.getElementById('zipcode').value = data.zonecode;
+	            document.getElementById('address').value = addr;
+	            document.getElementById('detailAddress').focus();
+	        }
+	    }).open();
+	}
+	
+	//결제하기
+	function buy(){
+		
+		var dataInfo = {};
+		 // input 값 가져오기
+		var registId = $('#registId').val();
+	    var companyNm = $('#companyName').val();
+	    var managerNm = $('#managerName').val();
+	    var productNm = $('#productName').val();
+	    var price = $('#productPrice').val();
+	    var productCnt = $('#productCnt').val();
+	    var productCategory = $('#productCategory').val();
+	    var productDesc = $('#productDesc').val();
+		var state = 'Z';
+	    
+		dataInfo.registId = registId;
+	    dataInfo.companyNm = companyNm;
+	    dataInfo.managerNm = managerNm;
+	    dataInfo.productNm = productNm;
+	    dataInfo.price = price;
+	    dataInfo.productCnt = productCnt;
+	    dataInfo.productCategory =  productCategory;
+	    dataInfo.productDesc =  productDesc;
+	    dataInfo.state = state;
+	    
+	    $.ajax({
+	        url: '/insProductBuyList',          
+	        type: 'POST',
+	        data: JSON.stringify(dataInfo),
+	        contentType: 'application/json',
+	        success: function(data) {
+	            if(data == "success"){
+	                alert('상품이 정상적으로 결제 되었습니다.');
+	                location.href="/"; 
+	            } else {
+	                alert('상품 결제 실패 ');
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('상품 결제 중 오류:', error);
+	        }
+	    });
+	}
+</script>
 <body>
+
+<div class="order-container">
+
+    <h1 class="order-title">주문 / 결제</h1>
+
+    <!-- 배송지 -->
+    <div class="order-block">
+        <h2>배송지 정보</h2>
+        <div class="address-box">
+            <input type="text" placeholder="받는 사람">
+            <input type="text" placeholder="연락처">
+			<!-- 우편번호 -->
+			  <input type="text" id="zipcode" placeholder="우편번호" readonly>
+
+			  <!-- 주소 -->
+			  <input type="text" id="address" placeholder="주소" readonly>
+
+			  <!-- 상세주소 -->
+			  <input type="text" id="detailAddress" placeholder="상세주소">
+
+			  <button type="button" onclick="execDaumPostcode()">주소 검색</button>
+        </div>
+    </div>
+
+    <!-- 주문 상품 -->
+    <div class="order-block">
+        <h2>주문 상품</h2>
+        <div class="product-box">
+            <img th:src="${productInfo.filePath}">
+            <div class="product-info">
+                <p class="name" th:text="${productInfo.productNm}"></p>
+                <p>
+                    수량:
+                    <span th:text="${buyProdInfo.productCnt}"></span>개
+                </p>
+                <p class="price">
+                    <span th:text="${totalOrder}"></span>
+                    원
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 결제 수단 -->
+    <div class="order-block">
+        <h2>결제 수단</h2>
+        <div class="pay-methods">
+            <label><input type="radio" name="pay" checked> 신용/체크카드</label>
+            <label><input type="radio" name="pay"> 네이버페이</label>
+            <label><input type="radio" name="pay"> 카카오페이</label>
+        </div>
+    </div>
+
+    <!-- 결제 금액 -->
+    <div class="order-block total-section">
+        <div class="total-row">
+            <span>상품 금액</span>
+            <span th:text="${productInfo.price} + ' 원'"></span>
+        </div>
+        <div class="total-row final">
+            <span>결제 금액</span>
+            <span th:text="${totalOrder} + ' 원'"></span>
+        </div>
+    </div>
+
+    <!-- 결제 버튼 -->
+    <button class="pay-btn" onclick="buy()">결제하기</button>
+
+</div>
 
 </body>
 </html>
