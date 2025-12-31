@@ -96,8 +96,9 @@ public class userProdController {
 		userVo loginUser = (userVo) session.getAttribute("userSession");
 		
 		String userAuth = loginUser.getUserAuth();
-		
+		userVo userInfo = loginUser;
 		model.addAttribute("auth",userAuth);
+		model.addAttribute("userInfo",userInfo);
 		
 		// 헤더 메뉴
 		List<menuVo> menuList = commonService.menuList(userAuth);

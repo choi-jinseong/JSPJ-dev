@@ -21,4 +21,18 @@ public interface userProdMapper {
 	 * @return
 	 */
 	businessVo selectProdDetail(String id);
+	
+	/**
+	 * 결제정보 저장
+	 * @param businessVo
+	 * @return
+	 */
+	int insProductBuyList(businessVo businessVo);
+	
+	/**
+	 * 마스터상품 갯수 수정
+	 * @param businessVo
+	 * @return
+	 */
+	int updProdInfo(businessVo businessVo);
 }

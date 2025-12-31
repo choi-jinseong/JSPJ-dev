@@ -118,6 +118,7 @@
 		}
     </style>
 </head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 	//주소검색
 	function execDaumPostcode() {
@@ -143,26 +144,34 @@
 	function buy(){
 		
 		var dataInfo = {};
-		 // input 값 가져오기
+		
+		var state = 'BE';
 		var registId = $('#registId').val();
-	    var companyNm = $('#companyName').val();
-	    var managerNm = $('#managerName').val();
-	    var productNm = $('#productName').val();
-	    var price = $('#productPrice').val();
-	    var productCnt = $('#productCnt').val();
-	    var productCategory = $('#productCategory').val();
-	    var productDesc = $('#productDesc').val();
-		var state = 'Z';
+		var productNm = $('#productNm').val();
+		var productCnt = $('#productCnt').val();
+		var orderUserId = $('#orderUserId').val();
+		var orderUserName = $('#orderUserName').val();
+		var productCnt = $('#productCnt').val();
+		var totalOrder = $('#totalOrder').val();
+		
+		var zipcode = $('#zipcode').val();
+		var address = $('#address').val();
+		var detailAddress = $('#detailAddress').val();
+		
+		var totalAddress = zipCode + '_' + address;
+		
 	    
-		dataInfo.registId = registId;
-	    dataInfo.companyNm = companyNm;
-	    dataInfo.managerNm = managerNm;
-	    dataInfo.productNm = productNm;
-	    dataInfo.price = price;
-	    dataInfo.productCnt = productCnt;
-	    dataInfo.productCategory =  productCategory;
-	    dataInfo.productDesc =  productDesc;
 	    dataInfo.state = state;
+	    dataInfo.registId = registId;
+	    dataInfo.productNm = productNm;
+	    dataInfo.productCnt = productCnt;
+	    dataInfo.userId = orderUserId;
+	    dataInfo.userName = orderUserName;
+	    dataInfo.productCnt = productCnt;
+	    dataInfo.productPrice = totalOrder;
+	    
+	    dataInfo.address = totalAddress;
+	    dataInfo.detailAddress = detailAddress;
 	    
 	    $.ajax({
 	        url: '/insProductBuyList',          
@@ -189,6 +198,16 @@
 
     <h1 class="order-title">주문 / 결제</h1>
 
+	<input type="hidden" id="registId" th:value="${productInfo.registId}">
+	<input type="hidden" id="productNm" th:value="${productInfo.productNm}">
+	<input type="hidden" id="price" th:value="${productInfo.price}">
+	
+	<input type="hidden" id="productCnt" th:value="${buyProdInfo.productCnt}">
+	<input type="hidden" id="orderUserId" th:value="${userInfo.id}">
+	<input type="hidden" id="orderUserName" th:value="${userInfo.name}">
+	<input type="hidden" id="productCnt" th:value="${buyProdInfo.productCnt}">
+	<input type="hidden" id="totalOrder" th:value="${totalOrder}">
+	
     <!-- 배송지 -->
     <div class="order-block">
         <h2>배송지 정보</h2>

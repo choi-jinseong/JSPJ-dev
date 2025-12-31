@@ -51,6 +51,43 @@
 		FROM REGIST_INFO
 		WHERE REGIST_ID = #{registId}
 	</select>
+	
+	<!-- 상품결제 저장 -->
+	<insert id="insProductBuyList" parameterType="com.JSPJ.demo.Vo.businessVo">
+		INSERT INTO ORDER_INFO
+		 (
+     	  USER_ID
+     	  ,USERNAME
+     	  ,PRODUCT_NAME
+     	  ,ADDRESS
+     	  ,ADDRESS_DETAIL
+     	  ,ORDER_KIND
+     	  ,PRODUCT_CNT
+     	  ,PRICE
+     	  ,STATE
+     	  ,DELIVERY_DATE
+		)
+		VALUES
+		(
+		 #{userId}
+		 ,#{userName}
+		 ,#{productNm}
+		 ,#{address}
+		 ,#{detailAddress}
+		 ,#{productCnt}
+		 ,#{totalOrder}
+		 ,#{state}
+		 ,#{deliveryDate}
+		)
+	</insert>
+	
+	<!-- 상품 갯수 수정 -->
+	<update id="updProdInfo" parameterType="com.JSPJ.demo.Vo.businessVo">
+		UPDATE REGIST_INFO SET  
+			, PRODUCT_CNT = #{productCnt}
+			, UPDATED_AT = GETDATE()
+		WHERE REGIST_ID = #{registId}
+	</update>
 
 	
 </mapper>
